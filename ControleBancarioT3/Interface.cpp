@@ -163,9 +163,9 @@ void Interface::criaNovoCliente()
         interfaceBanco.newClient(novoCliente);
         cout << "Cliente cadastrado com sucesso" << endl;
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
 };
 
 void Interface::criaNovaConta()
@@ -192,9 +192,9 @@ void Interface::criaNovaConta()
         interfaceBanco.newBankAccount(cliente);
         cout << "Conta criada com sucesso" << endl;
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
     
 }
 
@@ -208,9 +208,9 @@ void Interface::excluiCliente () {
         interfaceBanco.removeClient(cadastro);
         cout << "Cliente excluido da base de dados" << endl;
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
 }
 
 void Interface::excluiConta() {
@@ -222,9 +222,9 @@ void Interface::excluiConta() {
         interfaceBanco.removeBankAccount(numConta);
         cout << "Conta excluida" << endl;
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
     
 }
 
@@ -239,9 +239,9 @@ void Interface::deposita() {
     try {
         interfaceBanco.newDeposit(numConta, valorDeposito);
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
     
 }
 
@@ -256,9 +256,9 @@ void Interface::saca() {
     try {
         interfaceBanco.newWithdraw(numConta, valorSaque);
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
     
 }
 
@@ -277,9 +277,9 @@ void Interface::transfere() {
     try {
         interfaceBanco.newTransaction(contaOrigem, contaDestino, valorTransferencia);
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
     
 }
 
@@ -291,9 +291,9 @@ void Interface::checaSaldo(){
     try {
         cout << interfaceBanco.bankBalance(numeroConta) << endl;
     }
-    catch (ExceptionClass error){
+    catch (ExceptionClass& error) {
         cout << error.what() << endl;
-    }
+    };
     
 }
 
@@ -336,11 +336,11 @@ void Interface::listStatement() {
             vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta);
             printStatement(auxStatement);
         }
-        catch (ExceptionClass error){
+        catch (ExceptionClass& error) {
             cout << error.what() << endl;
-        }
-
+        };
     }
+    
     if (extrato == 'b' || extrato == 'B'){
         cout << "Digite numero da conta: " << endl;
         cin >> numConta;
@@ -352,11 +352,11 @@ void Interface::listStatement() {
             vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta, inputStartDate);
             printStatement(auxStatement);
         }
-        catch (ExceptionClass error){
+        catch (ExceptionClass& error) {
             cout << error.what() << endl;
-        }
-
+        };
     }
+
     if (extrato == 'c' || extrato == 'C'){
         cout << "Digite numero da conta: " << endl;
         cin >> numConta;
@@ -371,10 +371,9 @@ void Interface::listStatement() {
             vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta, inputStartDate, inputEndDate);
             printStatement(auxStatement);
         }
-        catch (ExceptionClass error){
+        catch (ExceptionClass& error) {
             cout << error.what() << endl;
-        }
-        
+        };
     }
 }
 

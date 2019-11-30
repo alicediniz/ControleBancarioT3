@@ -138,3 +138,22 @@ void Poupanca::credit (string description, double value, int baseDate) {
     setMovimentacoes(newMovs);
 };
 
+void Poupanca::creditIncome (int baseDate) {
+    int novoSaldo = 0;
+
+    if (baseDate == 29 || baseDate == 30 || baseDate == 31){
+        baseDate = 28;
+    }
+
+    int datePosition = checkBaseDate(baseDate);
+
+    if (datePosition != -1) {
+        novoSaldo = findBaseDateSaving(baseDate)*(1,01);
+        saldoPoupanca[datePosition].setValue(novoSaldo);
+        
+        vector <Movimentacao> newMovs = getFinancialMovements();
+        Movimentacao newMov = Movimentacao(description, 'C', value);
+        newMovs.push_back(newMov);
+        setMovimentacoes(newMovs);
+    }
+};

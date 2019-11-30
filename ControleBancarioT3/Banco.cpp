@@ -103,7 +103,7 @@ void Banco::newDeposit(int accountNumber, double value, string description) {
     if ( accIndex != -1) {
         contas[accIndex].credit(description, value);
     }
-    else{
+    else {
         throw ExceptionClass(5);
     }
 };

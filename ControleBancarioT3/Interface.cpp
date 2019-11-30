@@ -134,7 +134,7 @@ void Interface::menu()
 
         case 15: //METODO PARA CREDITAR RENDIMENTO NAS POUPANÇAS
         {
-            interfaceBanco.newSavingsIncome();
+//            interfaceBanco.newSavingsIncome();
             break;
         }
         case 0:
@@ -182,7 +182,8 @@ void Interface::criaNovaConta()
     string cpf_cnpj;
     string endereco;
     string telefone;
-
+    double limiteDeCredito;
+    
     cout << "Digite os dados do cliente para gerar a conta" << endl;
     cout << "Nome Completo: " << endl;
     cin.ignore();
@@ -194,10 +195,12 @@ void Interface::criaNovaConta()
     getline(cin, endereco);
     cout << "Número de telefone: " << endl;
     cin >> telefone;
+    cout << "Limite de Credito: " << endl;
+    cin >> limiteDeCredito;
     
     Cliente cliente = Cliente(nome, cpf_cnpj, endereco, telefone);
     try {
-        interfaceBanco.newBankAccount(cliente);
+        interfaceBanco.newBankAccount(cliente, limiteDeCredito);
         cout << "Conta criada com sucesso" << endl;
     }
     catch (ExceptionClass& error) {

@@ -44,17 +44,17 @@ void Banco::newClient(Cliente client) {
     }
 };
 
-void Banco::newBankAccount(Cliente client) {
-    string docNum = client.getDocumentNumber();
-    if (checkClientHasAccount(docNum) == -1 ) {
-        newClient(client);
-        Poupanca newAcc = Poupanca(client.getName(), docNum, client.getAddress(), client.getPhone());
-        contas.push_back(&(newAcc));
-    }
-    else {
-        throw ExceptionClass(3);
-    }
-};
+//void Banco::newBankAccount(Cliente client) {
+//    string docNum = client.getDocumentNumber();
+//    if (checkClientHasAccount(docNum) == -1 ) {
+//        newClient(client);
+//        Poupanca newAcc = Poupanca(client.getName(), docNum, client.getAddress(), client.getPhone());
+//        contas.push_back(&(newAcc));
+//    }
+//    else {
+//        throw ExceptionClass(3);
+//    }
+//};
 
 
 void Banco::newBankAccount(Cliente client,  double creditLimit) {
@@ -166,15 +166,15 @@ void Banco::newFee (double value) {
     }
 };
 
-void Banco::newSavingsIncome() {
-    time_t timeNow = time(0);
-    struct tm actualDay = *localtime(&timeNow);
-    int day = actualDay.tm_mday;
-
-    for (int j = 0; j < contas.size(); j++) {
-        contas[j]->creditIncome(day);
-    }
-};
+//void Banco::newSavingsIncome() {
+//    time_t timeNow = time(0);
+//    struct tm actualDay = *localtime(&timeNow);
+//    int day = actualDay.tm_mday;
+//
+//    for (int j = 0; j < contas.size(); j++) {
+//        contas[j]->creditIncome(day);
+//    }
+//};
 
 void Banco::newTaxCPMF () {
     string description = "Cobrança de CPMF";

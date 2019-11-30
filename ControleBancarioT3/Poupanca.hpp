@@ -28,7 +28,7 @@ public:
     void setAccount(Cliente client);
 
     // Metodos get
-    double getBalance ();
+    double getBalance();
     int findBaseDateSaving(int baseDate);
     int checkBaseDate(int baseDate);
     

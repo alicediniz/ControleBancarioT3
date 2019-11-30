@@ -28,19 +28,15 @@ public:
     Poupanca(string name , string document, string address, string phone, )
         : Conta(name, document, address, phone){}
 
-    // Metodos get
-    int getAccountNumber ();
-    double getBalance ();
-    Cliente getClient ();
-    vector <Movimentacao> getFinancialMovements();
-    vector <SaldoDiaBase> getDateBaseBalance();
 
+    // Metodos get
+    double getBalance ();
+    int findBaseDateSaving(int baseDate);
+    int checkBaseDate(int baseDate);
+    
     // Funcoes
-    void debit (string description, double value);
-    void credit (string description, double value);
-    vector <Movimentacao> getAccountBalance();
-    vector <Movimentacao> getAccountBalance(struct tm startTime);
-    vector <Movimentacao> getAccountBalance(struct tm startTime, struct tm endTime);
+    void debit (string description, double value, int baseDate);
+    void credit (string description, double value, int baseDate);
 };
 
 

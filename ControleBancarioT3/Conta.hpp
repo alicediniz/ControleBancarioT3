@@ -32,25 +32,25 @@ public:
     virtual void setAccount(Cliente client);
     
     // Metodos set
-    virtual void setNumConta(int numAccount);
-    virtual void setBalance(int balanceValue);
-    virtual void setClient(Cliente client);
-    virtual void setMovimentacoes(vector <Movimentacao> movs);
-    virtual void setProxNumConta();
+    void setNumConta(int numAccount);
+    void setBalance(int balanceValue);
+    void setClient(Cliente client);
+    void setMovimentacoes(vector <Movimentacao> movs);
+    void setProxNumConta();
     
     // Metodos get
-    virtual int getAccountNumber ();
     virtual double getBalance ();
-    virtual Cliente getClient ();
-    virtual vector <Movimentacao> getFinancialMovements();
-    virtual int getProximoNumConta();
+    int getAccountNumber ();
+    Cliente getClient ();
+    vector <Movimentacao> getFinancialMovements();
+    int getProximoNumConta();
     
     // Funcoes
     virtual void debit (string description, double value) = 0 ;
     virtual void credit (string description, double value) = 0 ;
-    virtual vector <Movimentacao> getAccountBalance();
-    virtual vector <Movimentacao> getAccountBalance(struct tm startTime);
-    virtual vector <Movimentacao> getAccountBalance(struct tm startTime, struct tm endTime);
+    vector <Movimentacao> getAccountBalance();
+    vector <Movimentacao> getAccountBalance(struct tm startTime);
+    vector <Movimentacao> getAccountBalance(struct tm startTime, struct tm endTime);
 
     // Teste
     void newMovTest(struct tm dataMov, string description, double value);

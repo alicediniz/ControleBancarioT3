@@ -27,11 +27,13 @@ public:
     
     // Metodos Set
     void setSaldo(string name , string document, string address, string phone);
-    
-    // Metodos get
-    string getDate ();
-    string getValue ();
-};
+    void setDate (int baseDate);
+    void setValue (double baseDateBalance);
 
+    // Metodos get
+    int getDate ();
+    double getValue ();
+    
+};
 
 #endif /* SaldoDiaBase_hpp */

@@ -12,36 +12,36 @@
 
 using namespace std;
 
- int Conta::proximoNumConta = 0;
+int Conta::proximoNumConta = 0;
 
- Conta::Conta(string name , string document, string address, string phone):cliente(name, document,address,phone){
+Conta::Conta(string name , string document, string address, string phone):cliente(name, document,address,phone){
     setAccount(cliente);
- };
+};
 
- void Conta::setAccount(Cliente client){
-     numConta = proximoNumConta;
-     saldo = 0;
-     cliente = client;
-     movimentacoes = {};
-     proximoNumConta++;
- };
+void Conta::setAccount(Cliente client){
+    numConta = proximoNumConta;
+    saldo = 0;
+    cliente = client;
+    movimentacoes = {};
+    proximoNumConta++;
+};
 
 // Metodos set
- void Conta::setNumConta(int numAccount){
+void Conta::setNumConta(int numAccount){
     numConta = numAccount;
- };
+};
 
- void Conta::setBalance(int balanceValue){
-     saldo = balanceValue;
- };
- 
- void Conta::setClient(Cliente client){
-     cliente = client;
- };
- 
- void Conta::setMovimentacoes(vector <Movimentacao> movs){
+void Conta::setBalance(int balanceValue){
+    saldo = balanceValue;
+};
+
+void Conta::setClient(Cliente client){
+    cliente = client;
+};
+
+void Conta::setMovimentacoes(vector <Movimentacao> movs){
     movimentacoes = movs;
- };
+};
 
 void Conta::setProxNumConta(){
     proximoNumConta ++;
@@ -50,18 +50,18 @@ void Conta::setProxNumConta(){
 
 // Metodos get
  int Conta::getAccountNumber () {
-     return numConta;
+    return numConta;
  };
 
  double Conta::getBalance () {
-     return saldo;
+    return saldo;
  };
  Cliente Conta::getClient () {
-     return cliente;
+    return cliente;
  };
 
  vector <Movimentacao> Conta::getFinancialMovements() {
-     return movimentacoes;
+    return movimentacoes;
  };
 
 

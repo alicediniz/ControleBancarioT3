@@ -27,6 +27,10 @@ public:
 
     void setAccount(Cliente client, double limit);
 
+    //Metodos get
+    double getBalance();
+    double getCreditLimit();
+
     // Funcoes
     void debit (string description, double value);
     void credit (string description, double value);

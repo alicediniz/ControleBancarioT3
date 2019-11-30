@@ -28,4 +28,12 @@ int SaldoDiaBase::getDate(){
 
 double SaldoDiaBase::getValue(){
     return saldoDiaBase;
+}
+
+void SaldoDiaBase::setDate (int baseDate){
+    diaBase = baseDate;
+};
+
+void SaldoDiaBase::setValue (double baseDateBalance) {
+    saldoDiaBase = baseDateBalance;
 };

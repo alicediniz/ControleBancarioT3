@@ -27,10 +27,6 @@ void Poupanca::setAccount(Cliente client){
     proximoNumConta++;
 };
 
-int Poupanca::getAccountNumber () {
-    return numConta;
-};
-
 double Poupanca::getBalance (){
     double savings = 0;
     for (auto balance : saldoPoupanca) {
@@ -39,89 +35,83 @@ double Poupanca::getBalance (){
     return savings;
 }
 
-double Poupanca::getCreditLimit () {
-    return limiteCredito;
-};
-
-Cliente Poupanca::getClient () {
-    return cliente;
-};
-
-vector <Movimentacao> Poupanca::getFinancialMovements() {
-    return movimentacoes;
-};
-
-vector <SaldoDiaBase> Poupanca::getDateBaseBalance() {
-    return saldoPoupanca;
-};
-
-void Poupanca::debit(string description, double value) {
-    // double novoSaldo = saldo - value;
-    // if (novoSaldo <= limiteCredito || description == "Cobrança de tarifa" || description == "Cobrança de CPMF") {
-    //     saldo = novoSaldo;
-    //     Movimentacao newMov = Movimentacao(description, 'D', value);
-    //     movimentacoes.push_back(newMov);
-    // }
-    // else {
-    //     cout << "Saldo insuficiente para debito" << endl;
-    // }
-};
-
-void Poupanca::credit (string description, double value) {
-    // double novoSaldo = saldo + value;
-    // saldo = novoSaldo;
-    // Movimentacao newMov = Movimentacao(description, 'C', value);
-    // movimentacoes.push_back(newMov);
-};
-
-vector <Movimentacao> Poupanca::getAccountBalance(){
-    return getFinancialMovements();
-};
-
-vector <Movimentacao> Poupanca::getAccountBalance(struct tm startTime){
-    vector <Movimentacao> movs = {};
-    vector <Movimentacao> accountMovs = getFinancialMovements();
-    if (accountMovs.empty()) {
-        return {};
-    }
-    else {
-        time_t timeNow = time(0);
-        for (auto v : accountMovs) {
-            struct tm movDate = v.getDate();
-            if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= timeNow)){
-                movs.push_back(v);
-            }
+int Poupanca::findBaseDateSaving(int baseDate) {
+    for (int j= 0; j< saldoPoupanca.size(); j++ ) {
+        if (saldoPoupanca[j].getDate() == baseDate) {
+            return saldoPoupanca[j].getValue();
         }
     }
-    return movs;
-};
+    return -1;
+}
 
-vector <Movimentacao> Poupanca::getAccountBalance(struct tm startTime, struct tm endTime){
-    vector <Movimentacao> movs = {};
-    vector <Movimentacao> accountMovs = getFinancialMovements();
-    if (accountMovs.empty()) {
-        return {};
-    }
-    else {
-        for (auto v : accountMovs) {
-            struct tm movDate = v.getDate();
-            if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= mktime(&endTime))){
-                movs.push_back(v);
-            }
+int Poupanca::checkBaseDate(int baseDate) {
+    for (int j= 0; j< saldoPoupanca.size(); j++ ) {
+        if (saldoPoupanca[j].getDate() == baseDate) {
+            return j;
         }
     }
-    return movs;
+    return -1;
+}
+
+void Poupanca::debit(string description, double value, int baseDate) {
+    int valorInicial = value;
+    int novoSaldo = 0;
+    int datePosition = 0;
+
+    if (baseDate == 29 || baseDate == 30 || baseDate == 31){
+        baseDate = 28;
+    }
+
+        while (value > 0) {
+            datePosition = checkBaseDate(baseDate);
+            if (datePosition != -1) {
+                novoSaldo = findBaseDateSaving(baseDate) - value;
+                if (novoSaldo < 0){
+                    saldoPoupanca[datePosition].setValue(0);
+                    value = novoSaldo*(-1);
+                    baseDate = baseDate - 1;
+                }
+                else {
+                    saldoPoupanca[datePosition].setValue(novoSaldo);
+                }
+            }
+            else {
+                baseDate = baseDate - 1;
+            }
+
+            if(baseDate <= 0){
+                throw ExceptionClass(1);
+            }
+        }
+
+        Movimentacao newMov = Movimentacao(description, 'D', valorInicial);
+        movimentacoes.push_back(newMov);
+    }
+    catch {
+        throw ExceptionClass(1);
+    }
+    
 };
 
+void Poupanca::credit (string description, double value, int baseDate) {
+    int novoSaldo = 0;
 
+    if (baseDate == 29 || baseDate == 30 || baseDate == 31){
+        baseDate = 28;
+    }
 
-int Poupanca::proximoNumConta = 0;
+    int datePosition = checkBaseDate(baseDate);
 
+    if (datePosition != -1) {
+        novoSaldo = findBaseDateSaving(baseDate) + value;
+        saldoPoupanca[datePosition].setValue(novoSaldo);
+    }
+    else {
+        SaldoDiaBase newSaving = SaldoDiaBase(baseDate, value);
+        saldoPoupanca.push_back(newSaving);
+    }
 
-
-void Poupanca::newMovTest (struct tm dataMov, string description, double value){
-    Movimentacao newMov = Movimentacao(description, 'T', value);
-    newMov.setMovimentation(dataMov, description, 'T', value);
+    Movimentacao newMov = Movimentacao(description, 'C', value);
     movimentacoes.push_back(newMov);
-    cout << "Ola" << endl;
 };
+

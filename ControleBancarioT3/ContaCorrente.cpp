@@ -18,6 +18,14 @@ ContaCorrente::ContaCorrente(string name , string document, string address, stri
     setAccount(client, limit);
 };
 
+double ContaCorrente::getBalance () {
+    return saldo;
+};
+
+double ContaCorrente::getCreditLimit () {
+    return limiteCredito;
+};
+
 void ContaCorrente::setAccount(Cliente client, double limit){
     setNumConta(getProximoNumConta());
     setBalance(0);
@@ -37,7 +45,7 @@ void ContaCorrente::debit(string description, double value) {
         setMovimentacoes(newMovs);
     }
     else {
-        cout << "Saldo insuficiente para debito" << endl;
+        throw ExceptionClass(1);
     }
 };
 

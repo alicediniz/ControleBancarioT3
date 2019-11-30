@@ -38,7 +38,7 @@ void Banco::newClient(Cliente client) {
         cout << "Cliente cadastrado com sucesso" << endl;
     }
     else {
-        cout << "Cliente já possui cadastro" << endl;
+        throw ExceptionClass(2);
     }
 };
 
@@ -51,7 +51,7 @@ void Banco::newBankAccount(Cliente client) {
         cout << "Conta criada com sucesso" << endl;
     }
     else {
-        cout << "Cliente ja possui conta no banco" << endl;
+        throw ExceptionClass(3);
     }
 };
 
@@ -82,7 +82,7 @@ void Banco::removeClient(string cpf_cnpj) {
         cout << "Cliente excluido da base de dados" << endl;
     }
     else {
-        cout << "Cliente não registrado" << endl;
+        throw ExceptionClass(4);
     }
 };
 
@@ -93,13 +93,14 @@ void Banco::removeBankAccount(int accountNumber) {
         cout << "Conta excluida" << endl;
         return;
     }
-    cout << "Conta não encontrada" << endl;
+    else{
+        throw ExceptionClass(5);
+    }
 };
 
 void Banco::newDeposit(int accountNumber, double value, string description) {
     if (value <= 0) {
-        cout << "Valor invalido" << endl;
-        return;
+        throw ExceptionClass(6);
     }
     int accIndex = findAccountIndex(accountNumber);
     
@@ -107,36 +108,32 @@ void Banco::newDeposit(int accountNumber, double value, string description) {
         contas[accIndex].credit(description, value);
     }
     else{
-        cout << "Conta não encontrada" << endl;
+        throw ExceptionClass(5);
     }
 };
 
 void Banco::newWithdraw(int accountNumber, double value, string description ) {
     if (value <= 0) {
-        cout << "Valor invalido" << endl;
-        return;
+        throw ExceptionClass(6);
     }
     int accIndex = findAccountIndex(accountNumber);
     if ( accIndex != -1) {
         contas[accIndex].debit(description, value);
     }
     else {
-        cout << "Conta não encontrada" << endl;
+        throw ExceptionClass(5);
     }
 };
 
 void Banco::newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value){
     if (value <= 0) {
-        cout << "Valor invalido" << endl;
-        return;
+        throw ExceptionClass(6);
     }
     if ( findAccountIndex(sourceAccountNumber) == -1 ) {
-        cout << "Conta remetente não foi encontrada" << endl;
-        return;
+        throw ExceptionClass(7);
     }
     if (findAccountIndex(destinationAccountNumber) == -1) {
-        cout << "Conta Destinatária não foi encontrada" << endl;
-        return;
+        throw ExceptionClass(8);
     }
     
     if ( contas[sourceAccountNumber].getBalance() - value >= 0 ) {
@@ -146,7 +143,7 @@ void Banco::newTransaction (int sourceAccountNumber, int destinationAccountNumbe
         newDeposit(destinationAccountNumber, value, descriptionDestination);
     }
     else {
-        cout << "Saldo insuficiente para realizar transferencia" << endl;
+        throw ExceptionClass(9);
     }
 };
 
@@ -189,7 +186,7 @@ double Banco::bankBalance(int accountNumber) {
         saldo = contas[accIndex].getBalance();
     }
     else {
-        cout << "Conta não encontrada" << endl;
+        throw ExceptionClass(5);
     }
     return saldo;
 };
@@ -206,7 +203,7 @@ vector <Movimentacao> Banco::bankStatement(int accountNumber) {
         statement = bankStatement(accountNumber, actualMonth);
     }
     else {
-        cout << "Conta não encontrada" << endl;
+        throw ExceptionClass(5);
     }
     return statement;
 };
@@ -218,7 +215,7 @@ vector <Movimentacao> Banco::bankStatement(int accountNumber, struct tm startTim
         statement =  contas[accountNumber].getAccountBalance(startTime);
     }
     else {
-        cout << "Conta não encontrada" << endl;
+        throw ExceptionClass(5);
     }
     return statement;
 };
@@ -230,7 +227,7 @@ vector <Movimentacao> Banco::bankStatement(int accountNumber, struct tm startTim
         statement =  contas[accIndex].getAccountBalance(startTime, endTime);
     }
     else {
-        cout << "Conta não encontrada" << endl;
+        throw ExceptionClass(5);
     }
     return statement;
 };

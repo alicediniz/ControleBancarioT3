@@ -26,7 +26,7 @@ public:
     SaldoDiaBase(int diaBase, double saldoDiaBase);
     
     // Metodos Set
-    void setSaldo(string name , string document, string address, string phone);
+    void setSaldo(int baseDate, double baseDateBalance);
     void setDate (int baseDate);
     void setValue (double baseDateBalance);
 

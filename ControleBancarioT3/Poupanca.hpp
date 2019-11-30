@@ -36,6 +36,7 @@ public:
     // Funcoes
     void debit (string description, double value, int baseDate);
     void credit (string description, double value, int baseDate);
+    vector <int> checkNearestBaseDate(int baseDate);
 };
 
 

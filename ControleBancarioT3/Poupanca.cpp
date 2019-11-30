@@ -56,10 +56,10 @@ int Poupanca::checkBaseDate(int baseDate) {
 }
 
 vector<int> Poupanca::checkNearestBaseDate(int baseDate) {
-    vector<int> vetorDeDiferencas;
+    vector <int> vetorDeDiferencas;
     for (int j= 0; j< saldoPoupanca.size(); j++ ) {
-        baseDateModule = abs(baseDate - saldoPoupanca[j].getDate())
-        vetorDeDiferencas.insert(j, baseDateModule)
+        int baseDateModule = abs(baseDate - saldoPoupanca[j].getDate());
+        vetorDeDiferencas.push_back(baseDateModule);
     }
     return vetorDeDiferencas;
 }
@@ -72,46 +72,32 @@ void Poupanca::debit(string description, double value, int baseDate) {
     int datePosition = 0;
     int minValue = 0;
 
-    vector<SaldoDiaBase> debitoSaldoAux = {};
+    vector <SaldoDiaBase> debitoSaldoAux = {};
 
     if (baseDate == 29 || baseDate == 30 || baseDate == 31){
         baseDate = 28;
     }
     try {
-        while (value > 0) {
-            datePosition = checkBaseDate(baseDate);
-            
-            if (datePosition != -1) {
-                novoSaldo = findBaseDateSaving(baseDate) - value;
-
-                if (novoSaldo < 0){
-                    SaldoDiaBase auxDebit = SaldoDiaBase(datePosition, 0);
-                    debitoSaldoAux.push_back(auxDebit);
-
-                    valoresData = checkNearestBaseDate(baseDate);
-
-                    for(int j= 0; j< valoresData.size(); j++){
-                        minValue = min_element(valoresData.begin(), valoresData.end());
-                        if(valoresData[j] == minValue){
-                            novoSaldo = novoSaldo - saldoPoupanca[j].getValue();
-                            SaldoDiaBase auxDebit = SaldoDiaBase(datePosition, 0);
-                            debitoSaldoAux.push_back(auxDebit);
-                        }
-                        if (novoSaldo == 0){
-                            value = 0;
-                            break;
-                        }
+        vector <int> distanciasDatas = checkNearestBaseDate(baseDate);
+        bool breakOut = false;
+        while (distanciasDatas.size() != 0 || !breakOut){
+            int minValue = *min_element(valoresData.begin(), valoresData.end());
+            for(int j= 0; j< valoresData.size(); j++){
+                if(distanciasDatas[j] == minValue){
+                    if( value <= saldoPoupanca[j].getValue()){
+                        novoSaldo = saldoPoupanca[j].getValue() - value;
+                        saldoPoupanca[j].setValue(novoSaldo);
+                        breakOut = true;
+                        break;
+                    }
+                    else {
+                        distanciasDatas.erase(distanciasDatas.begin()+j);
                     }
                 }
-                else {
-                    saldoPoupanca[datePosition].setValue(novoSaldo);
-                    value = 0;
-                }
-            }           
-
-            if(baseDate <= 0 && value > 0){
-                throw ExceptionClass(1);
             }
+        }
+        if (distanciasDatas.size() == 0) {
+            throw 1;
         }
 
         for (int j= 0; j< debitoSaldoAux.size(); j++ ) {
@@ -123,10 +109,9 @@ void Poupanca::debit(string description, double value, int baseDate) {
         newMovs.push_back(newMov);
         setMovimentacoes(newMovs);
     }
-    catch {
-        throw ExceptionClass(1);
+    catch (int e) {
+        throw ExceptionClass(e);
     }
-    
 };
 
 void Poupanca::credit (string description, double value, int baseDate) {

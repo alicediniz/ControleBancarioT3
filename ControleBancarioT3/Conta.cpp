@@ -12,100 +12,106 @@
 
 using namespace std;
 
-// Conta::Conta(string name , string document, string address, string phone):cliente(name, document,address,phone){
-//     setAccount(cliente);
-// };
+ int Conta::proximoNumConta = 0;
 
-// void Conta::setAccount(Cliente client){
-//     numConta = proximoNumConta;
-//     saldo = 0;
-//     cliente = client;
-//     movimentacoes = {};
-//     proximoNumConta++;
-// };
+ Conta::Conta(string name , string document, string address, string phone):cliente(name, document,address,phone){
+    setAccount(cliente);
+ };
 
-// int Conta::getAccountNumber () {
-//     return numConta;
-// };
+ void Conta::setAccount(Cliente client){
+     numConta = proximoNumConta;
+     saldo = 0;
+     cliente = client;
+     movimentacoes = {};
+     proximoNumConta++;
+ };
 
-// double Conta::getBalance () {
-//     return saldo;
-// };
-// Cliente Conta::getClient () {
-//     return cliente;
-// };
+// Metodos set
+ void Conta::setNumConta(int numAccount){
+    numConta = numAccount;
+ };
 
-// vector <Movimentacao> Conta::getFinancialMovements() {
-//     return movimentacoes;
-// };
+ void Conta::setBalance(int balanceValue){
+     saldo = balanceValue;
+ };
+ 
+ void Conta::setClient(Cliente client){
+     cliente = client;
+ };
+ 
+ void Conta::setMovimentacoes(vector <Movimentacao> movs){
+    movimentacoes = movs;
+ };
 
-// void Conta::debit(string description, double value) {
-//     double novoSaldo = saldo - value;
-//     if (novoSaldo >= 0 || description == "Cobrança de tarifa" || description == "Cobrança de CPMF") {
-//         saldo = novoSaldo;
-//         Movimentacao newMov = Movimentacao(description, 'D', value);
-//         movimentacoes.push_back(newMov);
-//     }
-//     else {
-//         cout << "Saldo insuficiente para debito" << endl;
-//     }
-// };
-
-// void Conta::credit (string description, double value) {
-//     double novoSaldo = saldo + value;
-//     saldo = novoSaldo;
-//     Movimentacao newMov = Movimentacao(description, 'C', value);
-//     movimentacoes.push_back(newMov);
-// };
-
-// vector <Movimentacao> Conta::getAccountBalance(){
-//     return getFinancialMovements();
-// };
-
-// vector <Movimentacao> Conta::getAccountBalance(struct tm startTime){
-//     vector <Movimentacao> movs = {};
-//     vector <Movimentacao> accountMovs = getFinancialMovements();
-//     if (accountMovs.empty()) {
-//         return {};
-//     }
-//     else {
-//         time_t timeNow = time(0);
-//         for (auto v : accountMovs) {
-//             struct tm movDate = v.getDate();
-//             if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= timeNow)){
-//                 movs.push_back(v);
-//             }
-//         }
-//     }
-//     return movs;
-// };
-
-// vector <Movimentacao> Conta::getAccountBalance(struct tm startTime, struct tm endTime){
-//     vector <Movimentacao> movs = {};
-//     vector <Movimentacao> accountMovs = getFinancialMovements();
-//     if (accountMovs.empty()) {
-//         return {};
-//     }
-//     else {
-//         for (auto v : accountMovs) {
-//             struct tm movDate = v.getDate();
-//             if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= mktime(&endTime))){
-//                 movs.push_back(v);
-//             }
-//         }
-//     }
-//     return movs;
-// };
+void Conta::setProxNumConta(){
+    proximoNumConta ++;
+};
 
 
+// Metodos get
+ int Conta::getAccountNumber () {
+     return numConta;
+ };
 
-// int Conta::proximoNumConta = 0;
+ double Conta::getBalance () {
+     return saldo;
+ };
+ Cliente Conta::getClient () {
+     return cliente;
+ };
+
+ vector <Movimentacao> Conta::getFinancialMovements() {
+     return movimentacoes;
+ };
 
 
+ vector <Movimentacao> Conta::getAccountBalance(){
+     return getFinancialMovements();
+ };
 
-// void Conta::newMovTest (struct tm dataMov, string description, double value){
-//     Movimentacao newMov = Movimentacao(description, 'T', value);
-//     newMov.setMovimentation(dataMov, description, 'T', value);
-//     movimentacoes.push_back(newMov);
-//     cout << "Ola" << endl;
-// };
+ vector <Movimentacao> Conta::getAccountBalance(struct tm startTime){
+     vector <Movimentacao> movs = {};
+     vector <Movimentacao> accountMovs = getFinancialMovements();
+     if (accountMovs.empty()) {
+         return {};
+     }
+     else {
+         time_t timeNow = time(0);
+         for (auto v : accountMovs) {
+             struct tm movDate = v.getDate();
+             if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= timeNow)){
+                 movs.push_back(v);
+             }
+         }
+     }
+     return movs;
+ };
+
+ vector <Movimentacao> Conta::getAccountBalance(struct tm startTime, struct tm endTime){
+     vector <Movimentacao> movs = {};
+     vector <Movimentacao> accountMovs = getFinancialMovements();
+     if (accountMovs.empty()) {
+         return {};
+     }
+     else {
+         for (auto v : accountMovs) {
+             struct tm movDate = v.getDate();
+             if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= mktime(&endTime))){
+                 movs.push_back(v);
+             }
+         }
+     }
+     return movs;
+ };
+
+int Conta::getProximoNumConta() {
+    return proximoNumConta;
+};
+
+
+ void Conta::newMovTest (struct tm dataMov, string description, double value){
+     Movimentacao newMov = Movimentacao(description, 'T', value);
+     newMov.setMovimentation(dataMov, description, 'T', value);
+     movimentacoes.push_back(newMov);
+     cout << "Ola" << endl;
+ };

@@ -27,18 +27,27 @@ private:
     static int proximoNumConta;
 
 public:
-    virtual Conta(string name , string document, string address, string phone);
+    
+    Conta(string name , string document, string address, string phone);
     virtual void setAccount(Cliente client);
+    
+    // Metodos set
+    virtual void setNumConta(int numAccount);
+    virtual void setBalance(int balanceValue);
+    virtual void setClient(Cliente client);
+    virtual void setMovimentacoes(vector <Movimentacao> movs);
+    virtual void setProxNumConta();
     
     // Metodos get
     virtual int getAccountNumber ();
     virtual double getBalance ();
     virtual Cliente getClient ();
     virtual vector <Movimentacao> getFinancialMovements();
+    virtual int getProximoNumConta();
     
     // Funcoes
-    virtual void debit (string description, double value);
-    virtual void credit (string description, double value);
+    virtual void debit (string description, double value) = 0 ;
+    virtual void credit (string description, double value) = 0 ;
     virtual vector <Movimentacao> getAccountBalance();
     virtual vector <Movimentacao> getAccountBalance(struct tm startTime);
     virtual vector <Movimentacao> getAccountBalance(struct tm startTime, struct tm endTime);

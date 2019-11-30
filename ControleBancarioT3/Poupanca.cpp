@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Poupanca::Poupanca(string name , string document, string address, string phone, double limit):conta(name, document, address, phone) {
+Poupanca::Poupanca(string name , string document, string address, string phone, double limit):Conta(name, document, address, phone) {
     saldoPoupanca = {};
     setAccount(cliente);
 };

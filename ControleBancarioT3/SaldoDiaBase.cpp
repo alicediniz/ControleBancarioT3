@@ -28,4 +28,4 @@ int SaldoDiaBase::getDate(){
 
 double SaldoDiaBase::getValue(){
     return saldoDiaBase;
-}
+};

@@ -23,24 +23,13 @@ class ContaCorrente : public Conta {
 private:
     double limiteCredito;
 public:
-    ContaCorrente(string name , string document, string address, string phone, double limit)
-        : Conta(name, document, address, phone), limiteCredito(limit) {}
+    ContaCorrente(string name , string document, string address, string phone, double limit);
 
-    void setAccount(Cliente client);
-    
-    // Metodos get
-    int getAccountNumber ();
-    double getBalance ();
-    double getCreditLimit ();
-    Cliente getClient ();
-    vector <Movimentacao> getFinancialMovements();
-    
+    void setAccount(Cliente client, double limit);
+
     // Funcoes
     void debit (string description, double value);
     void credit (string description, double value);
-    vector <Movimentacao> getAccountBalance();
-    vector <Movimentacao> getAccountBalance(struct tm startTime);
-    vector <Movimentacao> getAccountBalance(struct tm startTime, struct tm endTime);
 };
 
 

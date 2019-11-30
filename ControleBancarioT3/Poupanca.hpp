@@ -22,7 +22,7 @@ using namespace std;
 
 class Poupanca : public Conta {
 private:
-    vector<SaldoDiaBase> saldoPoupanca;
+    vector <SaldoDiaBase> saldoPoupanca;
 
 public:
     Poupanca(string name , string document, string address, string phone, )
@@ -34,7 +34,7 @@ public:
     Cliente getClient ();
     vector <Movimentacao> getFinancialMovements();
     vector <SaldoDiaBase> getDateBaseBalance();
-    
+
     // Funcoes
     void debit (string description, double value);
     void credit (string description, double value);

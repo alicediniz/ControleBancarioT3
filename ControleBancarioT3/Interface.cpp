@@ -43,6 +43,7 @@ void Interface::menu()
         puts(" [12] - Listar Clientes\n");
         puts(" [13] - Listar Contas\n");
         puts(" [14] - Teste\n");
+        puts(" [15] - Creditar rendimento em poupança\n");
         puts("Qualquer outra tecla para Sair");
         puts("\n\n");
         cin >> opcao;

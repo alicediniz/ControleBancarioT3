@@ -66,14 +66,6 @@ vector<int> Poupanca::checkNearestBaseDate(int baseDate) {
 
 
 void Poupanca::debit(string description, double value, int baseDate) {
-    int valorInicial = value;
-    vector<int> valoresData = {};
-    int novoSaldo = 0;
-    int datePosition = 0;
-    int minValue = 0;
-
-    vector <SaldoDiaBase> debitoSaldoAux = {};
-
     if (baseDate == 29 || baseDate == 30 || baseDate == 31){
         baseDate = 28;
     }
@@ -81,11 +73,11 @@ void Poupanca::debit(string description, double value, int baseDate) {
         vector <int> distanciasDatas = checkNearestBaseDate(baseDate);
         bool breakOut = false;
         while (distanciasDatas.size() != 0 || !breakOut){
-            int minValue = *min_element(valoresData.begin(), valoresData.end());
-            for(int j= 0; j< valoresData.size(); j++){
+            int minValue = *min_element(distanciasDatas.begin(), distanciasDatas.end());
+            for(int j= 0; j< distanciasDatas.size(); j++){
                 if(distanciasDatas[j] == minValue){
                     if( value <= saldoPoupanca[j].getValue()){
-                        novoSaldo = saldoPoupanca[j].getValue() - value;
+                        int novoSaldo = saldoPoupanca[j].getValue() - value;
                         saldoPoupanca[j].setValue(novoSaldo);
                         breakOut = true;
                         break;
@@ -100,12 +92,8 @@ void Poupanca::debit(string description, double value, int baseDate) {
             throw 1;
         }
 
-        for (int j= 0; j< debitoSaldoAux.size(); j++ ) {
-            saldoPoupanca[debitoSaldoAux[j].getDate()].setValue(debitoSaldoAux[j].getValue());
-        }
-
         vector <Movimentacao> newMovs = getFinancialMovements();
-        Movimentacao newMov = Movimentacao(description, 'D', valorInicial);
+        Movimentacao newMov = Movimentacao(description, 'D', value);
         newMovs.push_back(newMov);
         setMovimentacoes(newMovs);
     }
@@ -148,11 +136,11 @@ void Poupanca::creditIncome (int baseDate) {
     int datePosition = checkBaseDate(baseDate);
 
     if (datePosition != -1) {
-        novoSaldo = findBaseDateSaving(baseDate)*(1,01);
+        novoSaldo = findBaseDateSaving(baseDate)*(1.01);
         saldoPoupanca[datePosition].setValue(novoSaldo);
         
         vector <Movimentacao> newMovs = getFinancialMovements();
-        Movimentacao newMov = Movimentacao(description, 'C', novoSaldo);
+        Movimentacao newMov = Movimentacao("Rendimentos", 'C', novoSaldo);
         newMovs.push_back(newMov);
         setMovimentacoes(newMovs);
     }

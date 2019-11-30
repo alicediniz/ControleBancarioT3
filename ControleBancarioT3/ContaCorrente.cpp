@@ -19,20 +19,16 @@ ContaCorrente::ContaCorrente(string name , string document, string address, stri
     setAccount(client, limit);
 };
 
-double ContaCorrente::getBalance () {
-    return saldo;
-};
-
-double ContaCorrente::getCreditLimit () {
-    return limiteCredito;
-};
-
 void ContaCorrente::setAccount(Cliente client, double limit){
     setNumConta(getProximoNumConta());
     setBalance(0);
     setClient(client);
     setMovimentacoes({});
     setProxNumConta();
+};
+
+double ContaCorrente::getCreditLimit () {
+    return limiteCredito;
 };
 
 void ContaCorrente::debit(string description, double value) {
@@ -50,12 +46,12 @@ void ContaCorrente::debit(string description, double value) {
     }
 };
 
- void ContaCorrente::credit(string description, double value) {
-     double novoSaldo = getBalance() + value;
-     setBalance(novoSaldo);
-     vector <Movimentacao> newMovs = getFinancialMovements();
-     Movimentacao newMov = Movimentacao(description, 'C', value);
-     newMovs.push_back(newMov);
-     setMovimentacoes(newMovs);
- };
+void ContaCorrente::credit(string description, double value) {
+    double novoSaldo = getBalance() + value;
+    setBalance(novoSaldo);
+    vector <Movimentacao> newMovs = getFinancialMovements();
+    Movimentacao newMov = Movimentacao(description, 'C', value);
+    newMovs.push_back(newMov);
+    setMovimentacoes(newMovs);
+};
 

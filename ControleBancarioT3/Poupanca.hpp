@@ -25,9 +25,8 @@ private:
     vector <SaldoDiaBase> saldoPoupanca;
 
 public:
-    Poupanca(string name , string document, string address, string phone, )
-        : Conta(name, document, address, phone){}
-
+    Poupanca(string name , string document, string address, string phone);
+    void setAccount(Cliente client);
 
     // Metodos get
     double getBalance ();

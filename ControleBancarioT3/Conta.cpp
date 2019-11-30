@@ -47,71 +47,69 @@ void Conta::setProxNumConta(){
     proximoNumConta ++;
 };
 
-
 // Metodos get
- int Conta::getAccountNumber () {
+int Conta::getAccountNumber () {
     return numConta;
- };
+};
 
- double Conta::getBalance () {
+double Conta::getBalance () {
     return saldo;
- };
- Cliente Conta::getClient () {
+};
+Cliente Conta::getClient () {
     return cliente;
- };
+};
 
- vector <Movimentacao> Conta::getFinancialMovements() {
+vector <Movimentacao> Conta::getFinancialMovements() {
     return movimentacoes;
- };
+};
 
+vector <Movimentacao> Conta::getAccountBalance(){
+    return getFinancialMovements();
+};
 
- vector <Movimentacao> Conta::getAccountBalance(){
-     return getFinancialMovements();
- };
+vector <Movimentacao> Conta::getAccountBalance(struct tm startTime){
+    vector <Movimentacao> movs = {};
+    vector <Movimentacao> accountMovs = getFinancialMovements();
+    if (accountMovs.empty()) {
+        return {};
+    }
+    else {
+        time_t timeNow = time(0);
+        for (auto v : accountMovs) {
+            struct tm movDate = v.getDate();
+            if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= timeNow)){
+                movs.push_back(v);
+            }
+        }
+    }
+    return movs;
+};
 
- vector <Movimentacao> Conta::getAccountBalance(struct tm startTime){
-     vector <Movimentacao> movs = {};
-     vector <Movimentacao> accountMovs = getFinancialMovements();
-     if (accountMovs.empty()) {
-         return {};
-     }
-     else {
-         time_t timeNow = time(0);
-         for (auto v : accountMovs) {
-             struct tm movDate = v.getDate();
-             if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= timeNow)){
-                 movs.push_back(v);
-             }
-         }
-     }
-     return movs;
- };
-
- vector <Movimentacao> Conta::getAccountBalance(struct tm startTime, struct tm endTime){
-     vector <Movimentacao> movs = {};
-     vector <Movimentacao> accountMovs = getFinancialMovements();
-     if (accountMovs.empty()) {
-         return {};
-     }
-     else {
-         for (auto v : accountMovs) {
-             struct tm movDate = v.getDate();
-             if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= mktime(&endTime))){
-                 movs.push_back(v);
-             }
-         }
-     }
-     return movs;
- };
+vector <Movimentacao> Conta::getAccountBalance(struct tm startTime, struct tm endTime){
+    vector <Movimentacao> movs = {};
+    vector <Movimentacao> accountMovs = getFinancialMovements();
+    if (accountMovs.empty()) {
+        return {};
+    }
+    else {
+        for (auto v : accountMovs) {
+            struct tm movDate = v.getDate();
+            if ((mktime(&movDate) >= mktime(&startTime)) and (mktime(&movDate) <= mktime(&endTime))){
+                movs.push_back(v);
+            }
+        }
+    }
+    return movs;
+};
 
 int Conta::getProximoNumConta() {
     return proximoNumConta;
 };
 
 
- void Conta::newMovTest (struct tm dataMov, string description, double value){
-     Movimentacao newMov = Movimentacao(description, 'T', value);
-     newMov.setMovimentation(dataMov, description, 'T', value);
-     movimentacoes.push_back(newMov);
-     cout << "Ola" << endl;
- };
+void Conta::newMovTest (struct tm dataMov, string description, double value){
+    Movimentacao newMov = Movimentacao(description, 'T', value);
+    newMov.setMovimentation(dataMov, description, 'T', value);
+    movimentacoes.push_back(newMov);
+    cout << "Ola" << endl;
+};

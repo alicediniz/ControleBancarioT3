@@ -15,17 +15,18 @@
 
 using namespace std;
 
-Poupanca::Poupanca(string name , string document, string address, string phone, double limit):Conta(name, document, address, phone) {
-    saldoPoupanca = {};
-    setAccount(cliente);
+Poupanca::Poupanca(string name , string document, string address, string phone):Conta(name, document, address, phone) {
+    Cliente client = Cliente(name, document, address,phone);
+    setAccount(client);
 };
 
 void Poupanca::setAccount(Cliente client){
-    numConta = proximoNumConta;
-    saldo = 0;
-    cliente = client;
-    movimentacoes = {};
-    proximoNumConta++;
+    setNumConta(getProximoNumConta());
+    setBalance(0);
+    setClient(client);
+    setMovimentacoes({});
+    setProxNumConta();
+    saldoPoupanca = {};
 };
 
 double Poupanca::getBalance (){
@@ -85,15 +86,16 @@ void Poupanca::debit(string description, double value, int baseDate) {
             if(baseDate <= 0 && value > 0){
                 throw ExceptionClass(1);
             }
-            else {
-                for (int j= 0; j< debitoSaldoAux.size(); j++ ) {
-                    saldoPoupanca[debitoSaldoAux[j].getDate()].setValue(debitoSaldoAux[j].getValue());
-                }
-            }
         }
 
+        for (int j= 0; j< debitoSaldoAux.size(); j++ ) {
+            saldoPoupanca[debitoSaldoAux[j].getDate()].setValue(debitoSaldoAux[j].getValue());
+        }
+
+        vector <Movimentacao> newMovs = getFinancialMovements();
         Movimentacao newMov = Movimentacao(description, 'D', valorInicial);
-        movimentacoes.push_back(newMov);
+        newMovs.push_back(newMov);
+        setMovimentacoes(newMovs);
     }
     catch {
         throw ExceptionClass(1);
@@ -119,7 +121,9 @@ void Poupanca::credit (string description, double value, int baseDate) {
         saldoPoupanca.push_back(newSaving);
     }
 
+    vector <Movimentacao> newMovs = getFinancialMovements();
     Movimentacao newMov = Movimentacao(description, 'C', value);
-    movimentacoes.push_back(newMov);
+    newMovs.push_back(newMov);
+    setMovimentacoes(newMovs);
 };
 

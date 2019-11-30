@@ -152,7 +152,7 @@ void Poupanca::creditIncome (int baseDate) {
         saldoPoupanca[datePosition].setValue(novoSaldo);
         
         vector <Movimentacao> newMovs = getFinancialMovements();
-        Movimentacao newMov = Movimentacao(description, 'C', value);
+        Movimentacao newMov = Movimentacao(description, 'C', novoSaldo);
         newMovs.push_back(newMov);
         setMovimentacoes(newMovs);
     }

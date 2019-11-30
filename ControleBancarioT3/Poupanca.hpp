@@ -23,7 +23,6 @@ using namespace std;
 class Poupanca : public Conta {
 private:
     vector <SaldoDiaBase> saldoPoupanca;
-
 public:
     Poupanca(string name , string document, string address, string phone);
     void setAccount(Cliente client);

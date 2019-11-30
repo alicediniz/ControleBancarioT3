@@ -21,7 +21,7 @@ class Banco {
 private:
     string nomeBanco;
     vector<Cliente> clientes;
-    vector<Conta> contas;
+    vector<Conta*> contas;
     
     int findAccountIndex(int accountNumber);
     int checkClientHasAccount(string documentNumber);
@@ -34,18 +34,19 @@ public:
 
     // Metodos get
     vector <Cliente> getClientList ();
-    vector <Conta> getAccountList ();
+    vector <Conta*> getAccountList ();
     
     // Funcoes
     void newClient (Cliente client);
     void newBankAccount (Cliente client);
+    void newBankAccount (Cliente client, double creditLimit);
     void removeClient (string cpf_cnpj);
     void removeBankAccount (int accountNumber);
     void newDeposit (int accountNumber, double value, string description = "Depósito");
     void newWithdraw (int accountNumber, double value, string description = "Saque");
     void newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value);
     void newFee (double value);
-    void newTaxCPMF ();
+    void newTaxCPMF();
     void newSavingsIncome();
     double bankBalance (int accountNumber);
     vector <Movimentacao> bankStatement(int accountNumber);

@@ -313,10 +313,10 @@ void Interface::listaClientes() {
 }
 
 void Interface::listaContas() {
-    vector <Conta> listAccs = interfaceBanco.getAccountList();
+    vector <Conta*> listAccs = interfaceBanco.getAccountList();
     for (auto acc : listAccs){
-        cout << "Cliente: " << acc.getClient().getName() << endl;
-        cout << "Número da Conta: " << acc.getAccountNumber() << endl;
+        cout << "Cliente: " << acc->getClient().getName() << endl;
+        cout << "Número da Conta: " << acc->getAccountNumber() << endl;
     }
 }
 

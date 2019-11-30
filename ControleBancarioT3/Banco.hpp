@@ -20,8 +20,8 @@ using namespace std;
 class Banco {
 private:
     string nomeBanco;
-    vector <Cliente> clientes;
-    vector <Conta> contas;
+    vector<Cliente> clientes;
+    vector<Conta> contas;
     
     int findAccountIndex(int accountNumber);
     int checkClientHasAccount(string documentNumber);

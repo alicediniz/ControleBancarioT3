@@ -55,10 +55,22 @@ int Poupanca::checkBaseDate(int baseDate) {
     return -1;
 }
 
+vector<int> Poupanca::checkNearestBaseDate(int baseDate) {
+    vector<int> vetorDeDiferencas;
+    for (int j= 0; j< saldoPoupanca.size(); j++ ) {
+        baseDateModule = abs(baseDate - saldoPoupanca[j].getDate())
+        vetorDeDiferencas.insert(j, baseDateModule)
+    }
+    return vetorDeDiferencas;
+}
+
+
 void Poupanca::debit(string description, double value, int baseDate) {
     int valorInicial = value;
+    vector<int> valoresData = {};
     int novoSaldo = 0;
     int datePosition = 0;
+    int minValue = 0;
 
     vector<SaldoDiaBase> debitoSaldoAux = {};
 
@@ -68,20 +80,34 @@ void Poupanca::debit(string description, double value, int baseDate) {
     try {
         while (value > 0) {
             datePosition = checkBaseDate(baseDate);
+            
             if (datePosition != -1) {
                 novoSaldo = findBaseDateSaving(baseDate) - value;
+
                 if (novoSaldo < 0){
                     SaldoDiaBase auxDebit = SaldoDiaBase(datePosition, 0);
                     debitoSaldoAux.push_back(auxDebit);
-                    value = novoSaldo*(-1);
+
+                    valoresData = checkNearestBaseDate(baseDate);
+
+                    for(int j= 0; j< valoresData.size(); j++){
+                        minValue = min_element(valoresData.begin(), valoresData.end());
+                        if(valoresData[j] == minValue){
+                            novoSaldo = novoSaldo - saldoPoupanca[j].getValue();
+                            SaldoDiaBase auxDebit = SaldoDiaBase(datePosition, 0);
+                            debitoSaldoAux.push_back(auxDebit);
+                        }
+                        if (novoSaldo == 0){
+                            value = 0;
+                            break;
+                        }
+                    }
                 }
                 else {
                     saldoPoupanca[datePosition].setValue(novoSaldo);
                     value = 0;
                 }
-            }
-
-            baseDate = baseDate - 1;
+            }           
 
             if(baseDate <= 0 && value > 0){
                 throw ExceptionClass(1);

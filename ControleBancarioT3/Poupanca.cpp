@@ -11,6 +11,7 @@
 #include "Conta.hpp"
 #include "Poupanca.hpp"
 #include "Cliente.h"
+#include "ExceptionClass.hpp"
 
 using namespace std;
 
@@ -58,29 +59,36 @@ void Poupanca::debit(string description, double value, int baseDate) {
     int novoSaldo = 0;
     int datePosition = 0;
 
+    vector<SaldoDiaBase> debitoSaldoAux = {};
+
     if (baseDate == 29 || baseDate == 30 || baseDate == 31){
         baseDate = 28;
     }
-
+    try {
         while (value > 0) {
             datePosition = checkBaseDate(baseDate);
             if (datePosition != -1) {
                 novoSaldo = findBaseDateSaving(baseDate) - value;
                 if (novoSaldo < 0){
-                    saldoPoupanca[datePosition].setValue(0);
+                    SaldoDiaBase auxDebit = SaldoDiaBase(datePosition, 0);
+                    debitoSaldoAux.push_back(auxDebit);
                     value = novoSaldo*(-1);
-                    baseDate = baseDate - 1;
                 }
                 else {
                     saldoPoupanca[datePosition].setValue(novoSaldo);
+                    value = 0;
                 }
             }
-            else {
-                baseDate = baseDate - 1;
-            }
 
-            if(baseDate <= 0){
+            baseDate = baseDate - 1;
+
+            if(baseDate <= 0 && value > 0){
                 throw ExceptionClass(1);
+            }
+            else {
+                for (int j= 0; j< debitoSaldoAux.size(); j++ ) {
+                    saldoPoupanca[debitoSaldoAux[j].getDate()].setValue(debitoSaldoAux[j].getValue());
+                }
             }
         }
 

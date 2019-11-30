@@ -8,6 +8,7 @@
 
 #include <ctime>
 #include "Banco.hpp"
+#include "ExceptionClass.hpp"
 #include "Cliente.h"
 #include "Conta.hpp"
 #include <fstream>
@@ -35,7 +36,6 @@ vector <Conta> Banco::getAccountList () {
 void Banco::newClient(Cliente client) {
     if (findClient(client.getDocumentNumber()) == -1) {
         clientes.push_back(client);
-        cout << "Cliente cadastrado com sucesso" << endl;
     }
     else {
         throw ExceptionClass(2);
@@ -48,7 +48,6 @@ void Banco::newBankAccount(Cliente client) {
         newClient(client);
         Conta newAccount = Conta(client.getName(), docNum, client.getAddress(), client.getPhone());
         contas.push_back(newAccount);
-        cout << "Conta criada com sucesso" << endl;
     }
     else {
         throw ExceptionClass(3);
@@ -79,7 +78,6 @@ void Banco::removeClient(string cpf_cnpj) {
             removeBankAccount(accNumber);
         }
         clientes.erase(clientes.begin()+index);
-        cout << "Cliente excluido da base de dados" << endl;
     }
     else {
         throw ExceptionClass(4);
@@ -90,8 +88,6 @@ void Banco::removeBankAccount(int accountNumber) {
     int accIndex = findAccountIndex(accountNumber);
     if ( accIndex != - 1){
         contas.erase(contas.begin() + accIndex);
-        cout << "Conta excluida" << endl;
-        return;
     }
     else{
         throw ExceptionClass(5);

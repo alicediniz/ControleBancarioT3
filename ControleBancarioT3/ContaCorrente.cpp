@@ -10,6 +10,7 @@
 #include "Conta.hpp"
 #include "ContaCorrente.hpp"
 #include "Cliente.h"
+#include "ExceptionClass.hpp"
 
 using namespace std;
 

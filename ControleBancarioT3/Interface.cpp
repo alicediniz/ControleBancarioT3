@@ -10,6 +10,7 @@
 
 #include "Interface.hpp"
 #include "Banco.hpp"
+#include "ExceptionClass.hpp"
 #include <time.h>
 #include <string>
 #include <ctime>
@@ -158,7 +159,13 @@ void Interface::criaNovoCliente()
     cin >> telefone;
 
     Cliente novoCliente = Cliente(nome, cpf_cnpj, endereco, telefone);
-    interfaceBanco.newClient(novoCliente);
+    try {
+        interfaceBanco.newClient(novoCliente);
+        cout << "Cliente cadastrado com sucesso" << endl;
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
 };
 
 void Interface::criaNovaConta()
@@ -181,7 +188,14 @@ void Interface::criaNovaConta()
     cin >> telefone;
     
     Cliente cliente = Cliente(nome, cpf_cnpj, endereco, telefone);
-    interfaceBanco.newBankAccount(cliente);
+    try {
+        interfaceBanco.newBankAccount(cliente);
+        cout << "Conta criada com sucesso" << endl;
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
+    
 }
 
 void Interface::excluiCliente () {
@@ -189,14 +203,29 @@ void Interface::excluiCliente () {
     
     cout << "Digite CPF/CNPJ para excluir o cadastro do cliente:";
     cin >> cadastro;
-    interfaceBanco.removeClient(cadastro);
+
+    try {
+        interfaceBanco.removeClient(cadastro);
+        cout << "Cliente excluido da base de dados" << endl;
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
 }
 
 void Interface::excluiConta() {
     int numConta;
     cout << "Digite a o numero da conta que deseja excluir:";
     cin >> numConta;
-    interfaceBanco.removeBankAccount(numConta);
+
+    try {
+        interfaceBanco.removeBankAccount(numConta);
+        cout << "Conta excluida" << endl;
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
+    
 }
 
 void Interface::deposita() {
@@ -206,7 +235,14 @@ void Interface::deposita() {
     cin >> numConta;
     cout << "Digite o valor do deposito:\n";
     cin >> valorDeposito;
-    interfaceBanco.newDeposit(numConta, valorDeposito);
+
+    try {
+        interfaceBanco.newDeposit(numConta, valorDeposito);
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
+    
 }
 
 void Interface::saca() {
@@ -216,7 +252,14 @@ void Interface::saca() {
     cin >> numConta;
     cout << "Valor do saque:\n";
     cin >> valorSaque;
-    interfaceBanco.newWithdraw(numConta, valorSaque);
+
+    try {
+        interfaceBanco.newWithdraw(numConta, valorSaque);
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
+    
 }
 
 void Interface::transfere() {
@@ -230,14 +273,28 @@ void Interface::transfere() {
     cin >> contaDestino;
     cout << "Digite o valor da transferencia: \n";
     cin >> valorTransferencia;
-    interfaceBanco.newTransaction(contaOrigem, contaDestino, valorTransferencia);
+
+    try {
+        interfaceBanco.newTransaction(contaOrigem, contaDestino, valorTransferencia);
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
+    
 }
 
 void Interface::checaSaldo(){
     int numeroConta;
     cout << "Digite sua conta: ";
     cin >> numeroConta;
-    cout << interfaceBanco.bankBalance(numeroConta) << endl;
+
+    try {
+        cout << interfaceBanco.bankBalance(numeroConta) << endl;
+    }
+    catch (ExceptionClass error){
+        cout << error.what() << endl;
+    }
+    
 }
 
 void Interface::listaClientes() {
@@ -274,31 +331,51 @@ void Interface::listStatement() {
     if (extrato == 'a' || extrato == 'A'){
         cout << "Digite numero da conta: " << endl;
         cin >> numConta;
-        vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta);
-        printStatement(auxStatement);
+
+        try {
+            vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta);
+            printStatement(auxStatement);
+        }
+        catch (ExceptionClass error){
+            cout << error.what() << endl;
+        }
+
     }
     if (extrato == 'b' || extrato == 'B'){
-         cout << "Digite numero da conta: " << endl;
-         cin >> numConta;
-         cout << "Digite a data incial: (Formato DD/MM/AAAA)" << endl;
-         cin >> stringStartDate;
-         inputStartDate = handleStringDate(stringStartDate);
-         vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta, inputStartDate);
-         printStatement(auxStatement);
-     }
-     if (extrato == 'c' || extrato == 'C'){
-         cout << "Digite numero da conta: " << endl;
-         cin >> numConta;
-         cout << "Digite a data incial: " << endl;
-         cin >> stringStartDate;
-         cout << "Digite a data final: " << endl;
-         cin >> stringEndDate;
-         inputStartDate = handleStringDate(stringStartDate);
-         inputEndDate = handleStringDate(stringEndDate);
-         
-         vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta, inputStartDate, inputEndDate);
-         printStatement(auxStatement);
-     }
+        cout << "Digite numero da conta: " << endl;
+        cin >> numConta;
+        cout << "Digite a data incial: (Formato DD/MM/AAAA)" << endl;
+        cin >> stringStartDate;
+        inputStartDate = handleStringDate(stringStartDate);
+
+        try {
+            vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta, inputStartDate);
+            printStatement(auxStatement);
+        }
+        catch (ExceptionClass error){
+            cout << error.what() << endl;
+        }
+
+    }
+    if (extrato == 'c' || extrato == 'C'){
+        cout << "Digite numero da conta: " << endl;
+        cin >> numConta;
+        cout << "Digite a data incial: " << endl;
+        cin >> stringStartDate;
+        cout << "Digite a data final: " << endl;
+        cin >> stringEndDate;
+        inputStartDate = handleStringDate(stringStartDate);
+        inputEndDate = handleStringDate(stringEndDate);
+        
+        try {
+            vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta, inputStartDate, inputEndDate);
+            printStatement(auxStatement);
+        }
+        catch (ExceptionClass error){
+            cout << error.what() << endl;
+        }
+        
+    }
 }
 
 

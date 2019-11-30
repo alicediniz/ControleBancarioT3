@@ -46,6 +46,7 @@ public:
     void newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value);
     void newFee (double value);
     void newTaxCPMF ();
+    void newSavingsIncome();
     double bankBalance (int accountNumber);
     vector <Movimentacao> bankStatement(int accountNumber);
     vector <Movimentacao> bankStatement (int accountNumber, struct tm startTime);

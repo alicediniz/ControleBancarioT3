@@ -125,8 +125,15 @@ void Interface::menu()
             listaContas();
             break;
         }
+
         case 14: {
             interfaceBanco.testeStatement();
+            break;
+        }
+
+        case 15: //METODO PARA CREDITAR RENDIMENTO NAS POUPANÇAS
+        {
+            interfaceBanco.newSavingsIncome();
             break;
         }
         case 0:

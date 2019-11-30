@@ -151,6 +151,16 @@ void Banco::newFee (double value) {
     }
 };
 
+void Banco::newSavingsIncome() {
+    time_t timeNow = time(0);
+    struct tm actualDay = *localtime(&timeNow);
+    int day = actualDay->tm_mday;
+
+    for (int j = 0; j < contas.size(); j++) {
+        contas[j].creditIncome(day);
+    }
+};
+
 void Banco::newTaxCPMF () {
     string description = "Cobrança de CPMF";
     double descountFee = 0.0038;

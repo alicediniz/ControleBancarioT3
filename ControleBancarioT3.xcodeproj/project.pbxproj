@@ -1,0 +1,326 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5377A1102392B7F90086D7D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A10F2392B7F90086D7D8 /* main.cpp */; };
+		5377A1282392B8820086D7D8 /* Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A11A2392B8820086D7D8 /* Interface.cpp */; };
+		5377A1292392B8820086D7D8 /* Poupanca.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A11C2392B8820086D7D8 /* Poupanca.cpp */; };
+		5377A12A2392B8820086D7D8 /* Conta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A11D2392B8820086D7D8 /* Conta.cpp */; };
+		5377A12B2392B8820086D7D8 /* SaldoDiaBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A11E2392B8820086D7D8 /* SaldoDiaBase.cpp */; };
+		5377A12C2392B8820086D7D8 /* Banco.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A11F2392B8820086D7D8 /* Banco.cpp */; };
+		5377A12D2392B8830086D7D8 /* Cliente.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A1212392B8820086D7D8 /* Cliente.cpp */; };
+		5377A12E2392B8830086D7D8 /* ContaCorrente.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A1222392B8820086D7D8 /* ContaCorrente.cpp */; };
+		5377A12F2392B8830086D7D8 /* Movimentacao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5377A1232392B8820086D7D8 /* Movimentacao.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5377A10A2392B7F90086D7D8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		5377A10C2392B7F90086D7D8 /* ControleBancarioT3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ControleBancarioT3; sourceTree = BUILT_PRODUCTS_DIR; };
+		5377A10F2392B7F90086D7D8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5377A1162392B8820086D7D8 /* ContaCorrente.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ContaCorrente.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/ContaCorrente.hpp"; sourceTree = "<group>"; };
+		5377A1182392B8820086D7D8 /* Cliente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cliente.h; path = "../../../../../Downloads/Sistema de Controle Bancario/Cliente.h"; sourceTree = "<group>"; };
+		5377A1192392B8820086D7D8 /* SaldoDiaBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SaldoDiaBase.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/SaldoDiaBase.hpp"; sourceTree = "<group>"; };
+		5377A11A2392B8820086D7D8 /* Interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interface.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Interface.cpp"; sourceTree = "<group>"; };
+		5377A11B2392B8820086D7D8 /* Movimentacao.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Movimentacao.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Movimentacao.hpp"; sourceTree = "<group>"; };
+		5377A11C2392B8820086D7D8 /* Poupanca.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Poupanca.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Poupanca.cpp"; sourceTree = "<group>"; };
+		5377A11D2392B8820086D7D8 /* Conta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Conta.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Conta.cpp"; sourceTree = "<group>"; };
+		5377A11E2392B8820086D7D8 /* SaldoDiaBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaldoDiaBase.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/SaldoDiaBase.cpp"; sourceTree = "<group>"; };
+		5377A11F2392B8820086D7D8 /* Banco.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Banco.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Banco.cpp"; sourceTree = "<group>"; };
+		5377A1202392B8820086D7D8 /* Poupanca.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Poupanca.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Poupanca.hpp"; sourceTree = "<group>"; };
+		5377A1212392B8820086D7D8 /* Cliente.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cliente.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Cliente.cpp"; sourceTree = "<group>"; };
+		5377A1222392B8820086D7D8 /* ContaCorrente.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ContaCorrente.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/ContaCorrente.cpp"; sourceTree = "<group>"; };
+		5377A1232392B8820086D7D8 /* Movimentacao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Movimentacao.cpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Movimentacao.cpp"; sourceTree = "<group>"; };
+		5377A1242392B8820086D7D8 /* Banco.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Banco.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Banco.hpp"; sourceTree = "<group>"; };
+		5377A1252392B8820086D7D8 /* Interface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Interface.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Interface.hpp"; sourceTree = "<group>"; };
+		5377A1262392B8820086D7D8 /* Conta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Conta.hpp; path = "../../../../../Downloads/Sistema de Controle Bancario/Conta.hpp"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5377A1092392B7F90086D7D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5377A1032392B7F90086D7D8 = {
+			isa = PBXGroup;
+			children = (
+				5377A10E2392B7F90086D7D8 /* ControleBancarioT3 */,
+				5377A10D2392B7F90086D7D8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5377A10D2392B7F90086D7D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5377A10C2392B7F90086D7D8 /* ControleBancarioT3 */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5377A10E2392B7F90086D7D8 /* ControleBancarioT3 */ = {
+			isa = PBXGroup;
+			children = (
+				5377A11F2392B8820086D7D8 /* Banco.cpp */,
+				5377A1242392B8820086D7D8 /* Banco.hpp */,
+				5377A1212392B8820086D7D8 /* Cliente.cpp */,
+				5377A1182392B8820086D7D8 /* Cliente.h */,
+				5377A11D2392B8820086D7D8 /* Conta.cpp */,
+				5377A1262392B8820086D7D8 /* Conta.hpp */,
+				5377A1222392B8820086D7D8 /* ContaCorrente.cpp */,
+				5377A1162392B8820086D7D8 /* ContaCorrente.hpp */,
+				5377A11A2392B8820086D7D8 /* Interface.cpp */,
+				5377A1252392B8820086D7D8 /* Interface.hpp */,
+				5377A1232392B8820086D7D8 /* Movimentacao.cpp */,
+				5377A11B2392B8820086D7D8 /* Movimentacao.hpp */,
+				5377A11C2392B8820086D7D8 /* Poupanca.cpp */,
+				5377A1202392B8820086D7D8 /* Poupanca.hpp */,
+				5377A11E2392B8820086D7D8 /* SaldoDiaBase.cpp */,
+				5377A1192392B8820086D7D8 /* SaldoDiaBase.hpp */,
+				5377A10F2392B7F90086D7D8 /* main.cpp */,
+			);
+			path = ControleBancarioT3;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5377A10B2392B7F90086D7D8 /* ControleBancarioT3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5377A1132392B7F90086D7D8 /* Build configuration list for PBXNativeTarget "ControleBancarioT3" */;
+			buildPhases = (
+				5377A1082392B7F90086D7D8 /* Sources */,
+				5377A1092392B7F90086D7D8 /* Frameworks */,
+				5377A10A2392B7F90086D7D8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ControleBancarioT3;
+			productName = ControleBancarioT3;
+			productReference = 5377A10C2392B7F90086D7D8 /* ControleBancarioT3 */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5377A1042392B7F90086D7D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = trabalhoPOO;
+				TargetAttributes = {
+					5377A10B2392B7F90086D7D8 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 5377A1072392B7F90086D7D8 /* Build configuration list for PBXProject "ControleBancarioT3" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5377A1032392B7F90086D7D8;
+			productRefGroup = 5377A10D2392B7F90086D7D8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5377A10B2392B7F90086D7D8 /* ControleBancarioT3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5377A1082392B7F90086D7D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5377A12D2392B8830086D7D8 /* Cliente.cpp in Sources */,
+				5377A1292392B8820086D7D8 /* Poupanca.cpp in Sources */,
+				5377A12B2392B8820086D7D8 /* SaldoDiaBase.cpp in Sources */,
+				5377A12A2392B8820086D7D8 /* Conta.cpp in Sources */,
+				5377A12E2392B8830086D7D8 /* ContaCorrente.cpp in Sources */,
+				5377A1282392B8820086D7D8 /* Interface.cpp in Sources */,
+				5377A12C2392B8820086D7D8 /* Banco.cpp in Sources */,
+				5377A12F2392B8830086D7D8 /* Movimentacao.cpp in Sources */,
+				5377A1102392B7F90086D7D8 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5377A1112392B7F90086D7D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		5377A1122392B7F90086D7D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5377A1142392B7F90086D7D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5377A1152392B7F90086D7D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5377A1072392B7F90086D7D8 /* Build configuration list for PBXProject "ControleBancarioT3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5377A1112392B7F90086D7D8 /* Debug */,
+				5377A1122392B7F90086D7D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5377A1132392B7F90086D7D8 /* Build configuration list for PBXNativeTarget "ControleBancarioT3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5377A1142392B7F90086D7D8 /* Debug */,
+				5377A1152392B7F90086D7D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5377A1042392B7F90086D7D8 /* Project object */;
+}

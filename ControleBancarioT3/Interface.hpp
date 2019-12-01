@@ -41,7 +41,8 @@ public:
     void transfere();
     void checaSaldo();
     void listaClientes();
-    void listaContas();
+    void listaContasCorrentes();
+    void listaPoupancas();
     void listStatement();
     
     

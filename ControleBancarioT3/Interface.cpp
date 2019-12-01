@@ -14,7 +14,8 @@
 #include <time.h>
 #include <string>
 #include <ctime>
-
+#include "ContaCorrente.hpp"
+#include "Poupanca.hpp"
 
 using namespace std;
 
@@ -41,9 +42,10 @@ void Interface::menu()
         puts(" [10] - Saldo\n");
         puts(" [11] - Extrato\n");
         puts(" [12] - Listar Clientes\n");
-        puts(" [13] - Listar Contas\n");
-        puts(" [14] - Teste\n");
-        puts(" [15] - Creditar rendimento em poupança\n");
+        puts(" [13] - Listar Contas Corrente\n");
+        puts(" [14] - Listar Contas Poupança\n");
+        puts(" [15] - Teste\n");
+        puts(" [16] - Creditar rendimento em poupança\n");
         puts("Qualquer outra tecla para Sair");
         puts("\n\n");
         cin >> opcao;
@@ -123,18 +125,22 @@ void Interface::menu()
 
         case 13:
         {
-            listaContas();
+            listaContasCorrentes();
             break;
         }
-
-        case 14: {
+        case 14:
+        {
+            listaPoupancas();
+            break;
+        }
+        case 15: {
             interfaceBanco.testeStatement();
             break;
         }
 
-        case 15: //METODO PARA CREDITAR RENDIMENTO NAS POUPANÇAS
+        case 16: //METODO PARA CREDITAR RENDIMENTO NAS POUPANÇAS
         {
-//            interfaceBanco.newSavingsIncome();
+            interfaceBanco.newSavingsIncome();
             break;
         }
         case 0:
@@ -315,13 +321,22 @@ void Interface::listaClientes() {
     }
 }
 
-void Interface::listaContas() {
-    vector <Conta*> listAccs = interfaceBanco.getAccountList();
-    for (auto acc : listAccs){
-        cout << "Cliente: " << acc->getClient().getName() << endl;
-        cout << "Número da Conta: " << acc->getAccountNumber() << endl;
+void Interface::listaContasCorrentes() {
+    vector <ContaCorrente> listCurrentsAccs = interfaceBanco.getCorrenteList();
+    for (auto acc : listCurrentsAccs){
+        cout << "Cliente: " << acc.getClient().getName() << endl;
+        cout << "Número da Conta: " << acc.getAccountNumber() << endl;
     }
 }
+
+void Interface::listaPoupancas() {
+    vector <Poupanca> listSavingsAccs = interfaceBanco.getPoupancaList();
+    for (auto acc : listSavingsAccs){
+        cout << "Cliente: " << acc.getClient().getName() << endl;
+        cout << "Número da Conta: " << acc.getAccountNumber() << endl;
+    }
+}
+
 
 void Interface::listStatement() {
     char extrato;

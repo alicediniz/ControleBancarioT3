@@ -24,16 +24,21 @@ Banco::Banco(string bankName){
 void Banco::setBank(string bankName){
     nomeBanco = bankName;
     clientes = {};
-    contas = {};
+    contasCorrente = {};
+    poupancas = {};
 };
 
 vector <Cliente> Banco::getClientList () {
     return clientes;
 }
 
-vector <Conta*> Banco::getAccountList () {
-    return contas;
+vector <ContaCorrente> Banco::getCorrenteList (){
+    return contasCorrente;
 }
+
+vector <Poupanca> Banco::getPoupancaList (){
+    return poupancas;
+};
 
 void Banco::newClient(Cliente client) {
     if (findClient(client.getDocumentNumber()) == -1) {
@@ -46,10 +51,10 @@ void Banco::newClient(Cliente client) {
 
 //void Banco::newBankAccount(Cliente client) {
 //    string docNum = client.getDocumentNumber();
-//    if (checkClientHasAccount(docNum) == -1 ) {
+//    if (checkClientHasAccount(docNum,2) == -1 ) {
 //        newClient(client);
 //        Poupanca newAcc = Poupanca(client.getName(), docNum, client.getAddress(), client.getPhone());
-//        contas.push_back(&(newAcc));
+//        poupancas.push_back(newAcc);
 //    }
 //    else {
 //        throw ExceptionClass(3);
@@ -59,10 +64,10 @@ void Banco::newClient(Cliente client) {
 
 void Banco::newBankAccount(Cliente client,  double creditLimit) {
     string docNum = client.getDocumentNumber();
-    if (checkClientHasAccount(docNum) == -1 ) {
+    if (checkClientHasAccount(docNum, 1) == -1 ) {
         newClient(client);
         ContaCorrente newAcc = ContaCorrente(client.getName(), docNum, client.getAddress(), client.getPhone(), creditLimit);
-        contas.push_back(&(newAcc));
+        contasCorrente.push_back(newAcc);
     }
     else {
         throw ExceptionClass(3);
@@ -80,17 +85,23 @@ int Banco::findClient(string cpf_cnpj){
     return -1;
 }
 
-void Banco::removeClient(string cpf_cnpj) {
+void Banco::removeClient(string cpf_cnpj, int tipoConta) {
     int index = findClient(cpf_cnpj);
     bool deleteClient = true;
     if (index == -1){
         deleteClient = false;
     }
     if (deleteClient) {
-        int accIndex = checkClientHasAccount(cpf_cnpj);
+        int accIndex = checkClientHasAccount(cpf_cnpj, tipoConta);
         if ( accIndex != - 1) {
-            int accNumber = contas[accIndex]->getAccountNumber();
-            removeBankAccount(accNumber);
+            int accNumber;
+            if (tipoConta == 1) {
+                 accNumber = contasCorrente[accIndex].getAccountNumber();
+            }
+            else {
+                accNumber = poupancas[accIndex].getAccountNumber();
+            }
+            removeBankAccount(accNumber, tipoConta);
         }
         clientes.erase(clientes.begin()+index);
     }
@@ -99,10 +110,15 @@ void Banco::removeClient(string cpf_cnpj) {
     }
 };
 
-void Banco::removeBankAccount(int accountNumber) {
-    int accIndex = findAccountIndex(accountNumber);
+void Banco::removeBankAccount(int accountNumber, int tipoConta) {
+    int accIndex = findAccountIndex(accountNumber, tipoConta);
     if ( accIndex != - 1){
-        contas.erase(contas.begin() + accIndex);
+        if ( tipoConta == 1 ) {
+            contasCorrente.erase(contasCorrente.begin() + accIndex);
+        }
+        else {
+            poupancas.erase(poupancas.begin()+ accIndex);
+        }
     }
     else{
         throw ExceptionClass(5);
@@ -113,45 +129,94 @@ void Banco::newDeposit(int accountNumber, double value, string description) {
     if (value <= 0) {
         throw ExceptionClass(6);
     }
-    int accIndex = findAccountIndex(accountNumber);
-    
-    if ( accIndex != -1) {
-        contas[accIndex]->credit(description, value);
+    int accIndex = findAccountIndex(accountNumber, 1);
+    if ( accIndex != - 1) {
+        contasCorrente[accIndex].credit(description, value);
     }
     else {
         throw ExceptionClass(5);
     }
 };
+
+void Banco::newDeposit(int accountNumber, double value, int dataBase,string description) {
+    if (value <= 0) {
+        throw ExceptionClass(6);
+    }
+    int accIndex = findAccountIndex(accountNumber, 1);
+    if ( accIndex != - 1) {
+        poupancas[accIndex].credit(description,value, dataBase);
+    }
+    else {
+        throw ExceptionClass(5);
+    }
+};
+
 
 void Banco::newWithdraw(int accountNumber, double value, string description ) {
     if (value <= 0) {
         throw ExceptionClass(6);
     }
-    int accIndex = findAccountIndex(accountNumber);
+    int accIndex = findAccountIndex(accountNumber,1);
     if ( accIndex != -1) {
-        contas[accIndex]->debit(description, value);
+        contasCorrente[accIndex].debit(description, value);
     }
     else {
         throw ExceptionClass(5);
     }
 };
 
-void Banco::newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value){
+void Banco::newWithdraw(int accountNumber, double value, int dataBase, string description ) {
     if (value <= 0) {
         throw ExceptionClass(6);
     }
-    if ( findAccountIndex(sourceAccountNumber) == -1 ) {
+    int accIndex = findAccountIndex(accountNumber,2);
+    if ( accIndex != -1) {
+        poupancas[accIndex].debit(description, value, dataBase);
+    }
+    else {
+        throw ExceptionClass(5);
+    }
+};
+
+void Banco::newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value, int tipoConta1 , int tipoConta2){
+    if (value <= 0) {
+        throw ExceptionClass(6);
+    }
+    if ( findAccountIndex(sourceAccountNumber, tipoConta1) == -1 ) {
         throw ExceptionClass(7);
     }
-    if (findAccountIndex(destinationAccountNumber) == -1) {
+    if (findAccountIndex(destinationAccountNumber, tipoConta2) == -1) {
         throw ExceptionClass(8);
     }
-    
-    if ( contas[sourceAccountNumber]->getBalance() - value >= 0 ) {
+    double atualSaldo;
+    if (tipoConta1 == 1 ) {
+        atualSaldo = contasCorrente[sourceAccountNumber].getBalance();
+    }
+    else {
+        atualSaldo = poupancas[sourceAccountNumber].getBalance();
+    }
+    if ( atualSaldo - value >= 0 ) {
         string descriptionSource = "Transferência para conta " + std::to_string(destinationAccountNumber);
         string descriptionDestination = "Transferência da conta " + std::to_string(sourceAccountNumber);
-        newWithdraw(sourceAccountNumber, value, descriptionSource);
-        newDeposit(destinationAccountNumber, value, descriptionDestination);
+        if ( tipoConta1 == 1) {
+            newWithdraw(sourceAccountNumber, value, descriptionSource);
+        }
+        else {
+            time_t timeNow = time(0);
+            struct tm actualDay = *localtime(&timeNow);
+            int day = actualDay.tm_mday;
+            newWithdraw(sourceAccountNumber, value, day, descriptionSource);
+        }
+        
+        if ( tipoConta2 == 1 ) {
+            newDeposit(destinationAccountNumber, value, descriptionDestination);
+        }
+        else {
+            time_t timeNow = time(0);
+            struct tm actualDay = *localtime(&timeNow);
+            int day = actualDay.tm_mday;
+            newDeposit(destinationAccountNumber, value, day, descriptionDestination);
+        }
     }
     else {
         throw ExceptionClass(9);
@@ -161,20 +226,20 @@ void Banco::newTransaction (int sourceAccountNumber, int destinationAccountNumbe
 void Banco::newFee (double value) {
     string description = "Cobrança de tarifa";
     int j;
-    for (j = 0; j < contas.size(); j++ ) {
-        contas[j]->debit(description, value);
+    for (j = 0; j < contasCorrente.size(); j++ ) {
+        contasCorrente[j].debit(description, value);
     }
 };
 
-//void Banco::newSavingsIncome() {
-//    time_t timeNow = time(0);
-//    struct tm actualDay = *localtime(&timeNow);
-//    int day = actualDay.tm_mday;
-//
-//    for (int j = 0; j < contas.size(); j++) {
-//        contas[j]->creditIncome(day);
-//    }
-//};
+void Banco::newSavingsIncome() {
+    time_t timeNow = time(0);
+    struct tm actualDay = *localtime(&timeNow);
+    int day = actualDay.tm_mday;
+
+    for (int j = 0; j < poupancas.size(); j++) {
+        poupancas[j].creditIncome(day);
+    }
+};
 
 void Banco::newTaxCPMF () {
     string description = "Cobrança de CPMF";
@@ -184,8 +249,8 @@ void Banco::newTaxCPMF () {
     time_t lastDay = time(0);
     time_t firtsDay = lastDay - 7*24*60*60;
 
-    for (auto acc:contas) {
-        movimentacoesAux = acc->getFinancialMovements();
+    for (auto acc:contasCorrente) {
+        movimentacoesAux = acc.getFinancialMovements();
         for (auto mov:movimentacoesAux){
             if(mov.getDebitCredit() == 'D'){
                 struct tm movDate = mov.getDate();
@@ -196,15 +261,20 @@ void Banco::newTaxCPMF () {
         }
 
         descountValue = descountValue * descountFee;
-        newWithdraw(acc->getAccountNumber(), descountValue, description);
+        newWithdraw(acc.getAccountNumber(), descountValue, description);
     }
 }
 
-double Banco::bankBalance(int accountNumber) {
-    int accIndex = findAccountIndex(accountNumber);
+double Banco::bankBalance(int accountNumber, int tipoConta) {
+    int accIndex = findAccountIndex(accountNumber, tipoConta);
     double saldo = 0.0;
     if( accIndex != - 1) {
-        saldo = contas[accIndex]->getBalance();
+        if ( tipoConta == 1) {
+            saldo = contasCorrente[accIndex].getBalance();
+        }
+        else {
+            saldo = poupancas[accIndex].getBalance();
+        }
     }
     else {
         throw ExceptionClass(5);
@@ -212,14 +282,14 @@ double Banco::bankBalance(int accountNumber) {
     return saldo;
 };
 
-vector <Movimentacao> Banco::bankStatement(int accountNumber) {
+vector <Movimentacao> Banco::bankStatement(int accountNumber, int tipoConta) {
     time_t timeNow = time(0);
     struct tm actualMonth;
     actualMonth = *localtime(&timeNow);
     actualMonth.tm_mday = 1;
     vector <Movimentacao> statement;
     
-    int accIndex = findAccountIndex(accountNumber);
+    int accIndex = findAccountIndex(accountNumber, tipoConta);
     if (accIndex != - 1) {
         statement = bankStatement(accountNumber, actualMonth);
     }
@@ -233,7 +303,7 @@ vector <Movimentacao> Banco::bankStatement(int accountNumber, struct tm startTim
     int accIndex = findAccountIndex(accountNumber);
     vector <Movimentacao> statement;
     if (accIndex != -1) {
-        statement =  contas[accountNumber]->getAccountBalance(startTime);
+        statement =  contasCorrente[accountNumber].getAccountBalance(startTime);
     }
     else {
         throw ExceptionClass(5);
@@ -273,7 +343,7 @@ void Banco::readFile(string fileName) {
     inputFile.close();
 };
 
-int Banco::findAccountIndex(int accountNumber) {
+int Banco::findAccountIndex(int accountNumber, int tipoConta) {
     for (int j= 0; j< contas.size(); j++ ) {
         if (contas[j]->getAccountNumber() == accountNumber) {
             return j;
@@ -282,9 +352,14 @@ int Banco::findAccountIndex(int accountNumber) {
     return -1;
 }
 
-int Banco::checkClientHasAccount(string documentNumber) {
+int Banco::checkClientHasAccount(string documentNumber, int tipoConta) {
     int count = 0;
-    vector <Conta*> listAccs = contas;
+    if ( tipoConta == 1 ) {
+        vector <ContaCorrente> listAccs = contasCorrente;
+    }
+    else {
+        vector <Poupanca> listAccs = poupancas;
+    }
     for (auto acc:listAccs) {
         if ( acc->getClient().getDocumentNumber()  == documentNumber) {
             return count;

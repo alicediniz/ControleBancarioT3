@@ -13,6 +13,8 @@
 #include <vector>
 #include "Conta.hpp"
 #include "Cliente.h"
+#include "ContaCorrente.hpp"
+#include "Poupanca.hpp"
 
 using namespace std;
 
@@ -21,10 +23,11 @@ class Banco {
 private:
     string nomeBanco;
     vector<Cliente> clientes;
-    vector<Conta*> contas;
+    vector <ContaCorrente> contasCorrente;
+    vector <Poupanca> poupancas;
     
-    int findAccountIndex(int accountNumber);
-    int checkClientHasAccount(string documentNumber);
+    int findAccountIndex(int accountNumber, int tipoConta);
+    int checkClientHasAccount(string documentNumber, int tipoConta);
     int findClient(string cpf_cnpj);
     
     
@@ -34,22 +37,25 @@ public:
 
     // Metodos get
     vector <Cliente> getClientList ();
-    vector <Conta*> getAccountList ();
+    vector <ContaCorrente> getCorrenteList ();
+    vector <Poupanca> getPoupancaList ();
     
     // Funcoes
     void newClient (Cliente client);
-    //void newBankAccount (Cliente client);
+    void newBankAccount (Cliente client);
     void newBankAccount (Cliente client, double creditLimit);
-    void removeClient (string cpf_cnpj);
-    void removeBankAccount (int accountNumber);
+    void removeClient (string cpf_cnpj, int tipoConta);
+    void removeBankAccount (int accountNumber, int tipoConta);
     void newDeposit (int accountNumber, double value, string description = "Depósito");
+    void newDeposit (int accountNumber, double value, int dataBase, string description = "Depósito");
     void newWithdraw (int accountNumber, double value, string description = "Saque");
-    void newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value);
+    void newWithdraw (int accountNumber, double value, int dataBase, string description = "Saque");
+    void newTransaction (int sourceAccountNumber, int destinationAccountNumber, double value, int tipoConta1 , int tipoConta2);
     void newFee (double value);
     void newTaxCPMF();
-    //void newSavingsIncome();
-    double bankBalance (int accountNumber);
-    vector <Movimentacao> bankStatement(int accountNumber);
+    void newSavingsIncome();
+    double bankBalance (int accountNumber, int tipoConta);
+    vector <Movimentacao> bankStatement(int accountNumber, int tipoConta);
     vector <Movimentacao> bankStatement (int accountNumber, struct tm startTime);
     vector <Movimentacao> bankStatement (int accountNumber, struct tm startTime, struct tm endTime);
     

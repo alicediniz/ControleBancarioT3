@@ -37,6 +37,10 @@ double Poupanca::getBalance (){
     return savings;
 }
 
+vector <SaldoDiaBase> Poupanca::getSavingsMovements() {
+    return saldoPoupanca;
+};
+
 int Poupanca::findBaseDateSaving(int baseDate) {
     for (int j= 0; j< saldoPoupanca.size(); j++ ) {
         if (saldoPoupanca[j].getDate() == baseDate) {

@@ -29,6 +29,7 @@ public:
 
     // Metodos get
     double getBalance();
+    vector <SaldoDiaBase> getSavingsMovements();
     int findBaseDateSaving(int baseDate);
     int checkBaseDate(int baseDate);
     

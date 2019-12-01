@@ -404,7 +404,7 @@ void Interface::listStatement() {
     if (extrato == 'a' || extrato == 'A'){
         cout << "Digite numero da conta: " << endl;
         cin >> numConta;
-
+        
         try {
             vector <Movimentacao> auxStatement = interfaceBanco.bankStatement(numConta);
             printStatement(auxStatement);

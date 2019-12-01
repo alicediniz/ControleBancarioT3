@@ -319,10 +319,10 @@ vector <Movimentacao> Banco::bankStatement(int accountNumber, struct tm startTim
 };
 
 vector <Movimentacao> Banco::bankStatement(int accountNumber, struct tm startTime, struct tm endTime) {
-    int accIndex = findAccountIndex(accountNumber);
+    int accIndex = findAccountIndex(accountNumber,1);
     vector <Movimentacao> statement;
     if (accIndex != -1) {
-        statement =  contas[accIndex]->getAccountBalance(startTime, endTime);
+        statement =  contasCorrente[accIndex].getAccountBalance(startTime, endTime);
     }
     else {
         throw ExceptionClass(5);
@@ -351,11 +351,21 @@ void Banco::readFile(string fileName) {
 };
 
 int Banco::findAccountIndex(int accountNumber, int tipoConta) {
-    for (int j= 0; j< contas.size(); j++ ) {
-        if (contas[j]->getAccountNumber() == accountNumber) {
-            return j;
+    if (tipoConta == 1) {
+        for (int j= 0; j< contasCorrente.size(); j++ ) {
+            if (contasCorrente[j].getAccountNumber() == accountNumber) {
+                return j;
+            }
         }
     }
+    else {
+        for (int j= 0; j< poupancas.size(); j++ ) {
+            if (poupancas[j].getAccountNumber() == accountNumber) {
+                return j;
+            }
+        }
+    }
+
     return -1;
 }
 
@@ -363,34 +373,22 @@ int Banco::checkClientHasAccount(string documentNumber, int tipoConta) {
     int count = 0;
     if ( tipoConta == 1 ) {
         vector <ContaCorrente> listAccs = contasCorrente;
+        for (auto acc:listAccs) {
+            if ( acc.getClient().getDocumentNumber()  == documentNumber) {
+                return count;
+            }
+            count++;
+        }
     }
     else {
-        vector <Poupanca> listAccs = poupancas;
-    }
-    for (auto acc:listAccs) {
-        if ( acc->getClient().getDocumentNumber()  == documentNumber) {
-            return count;
-        }
-        count++;
+//        vector <Poupanca> listAccs = poupancas;
+//        for (auto acc:listAccs) {
+//            if ( acc.getClient().getDocumentNumber()  == documentNumber) {
+//                return count;
+//            }
+//            count++;
+//        }
+        return 0;
     }
     return -1;
-}
-        
-void Banco::testeStatement() {
-    struct tm tstruct;
-    tstruct.tm_mday = 10;
-    tstruct.tm_mon = 10-1;
-    tstruct.tm_year = 2010 - 1900;
-    contas[0]->newMovTest(tstruct, "Teste 10/10/2010", 10.5);
-    
-    tstruct.tm_mday = 10;
-    tstruct.tm_mon = 9-1;
-    tstruct.tm_year = 2008 - 1900;
-    contas[0]->newMovTest(tstruct, "Teste 10/09/2008", 10);
-
-    tstruct.tm_mday = 10;
-    tstruct.tm_mon = 9-1;
-    tstruct.tm_year = 2005 - 1900;
-    contas[0]->newMovTest(tstruct, "Teste 10/09/2005", 10);
-
 }

@@ -31,6 +31,10 @@ double ContaCorrente::getCreditLimit () {
     return limiteCredito;
 };
 
+double ContaCorrente::getBalance () {
+    return getSaldoConta();
+};
+
 void ContaCorrente::debit(string description, double value) {
     double depositLimit = getBalance() + limiteCredito;
     if (value <= depositLimit || description == "Cobrança de tarifa" || description == "Cobrança de CPMF") {

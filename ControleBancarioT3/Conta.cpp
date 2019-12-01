@@ -52,9 +52,10 @@ int Conta::getAccountNumber () {
     return numConta;
 };
 
-double Conta::getBalance () {
+double Conta::getSaldoConta () {
     return saldo;
 };
+
 Cliente Conta::getClient () {
     return cliente;
 };

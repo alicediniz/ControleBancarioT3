@@ -39,7 +39,8 @@ public:
     void setProxNumConta();
     
     // Metodos get
-    virtual double getBalance ();
+    double getSaldoConta ();
+    virtual double getBalance () = 0 ;
     int getAccountNumber ();
     Cliente getClient ();
     vector <Movimentacao> getFinancialMovements();

@@ -29,6 +29,7 @@ public:
 
     //Metodos get
     double getCreditLimit();
+    double getBalance ();
 
     // Funcoes
     void debit (string description, double value);

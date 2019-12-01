@@ -44,7 +44,7 @@ public:
     void newClient (Cliente client);
     void newBankAccount (Cliente client);
     void newBankAccount (Cliente client, double creditLimit);
-    void removeClient (string cpf_cnpj, int tipoConta);
+    void removeClient (string cpf_cnpj);
     void removeBankAccount (int accountNumber, int tipoConta);
     void newDeposit (int accountNumber, double value, string description = "Depósito");
     void newDeposit (int accountNumber, double value, int dataBase, string description = "Depósito");
@@ -55,7 +55,7 @@ public:
     void newTaxCPMF();
     void newSavingsIncome();
     double bankBalance (int accountNumber, int tipoConta);
-    vector <Movimentacao> bankStatement(int accountNumber, int tipoConta);
+    vector <Movimentacao> bankStatement(int accountNumber);
     vector <Movimentacao> bankStatement (int accountNumber, struct tm startTime);
     vector <Movimentacao> bankStatement (int accountNumber, struct tm startTime, struct tm endTime);
     

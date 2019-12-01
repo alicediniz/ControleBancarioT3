@@ -33,19 +33,22 @@ void Interface::menu()
         puts("  [1] - Cadastrar novo Cliente\n");
         puts("  [2] - Abrir Nova Conta\n");
         puts("  [3] - Excluir Cliente\n");
-        puts("  [4] - Excluir Conta\n");
-        puts("  [5] - Depositar\n");
-        puts("  [6] - Sacar\n");
-        puts("  [7] - Transferencia\n");
-        puts("  [8] - Cobrar Tarifa\n");
-        puts("  [9] - Cobrar CPMF\n");
-        puts(" [10] - Saldo\n");
-        puts(" [11] - Extrato\n");
-        puts(" [12] - Listar Clientes\n");
-        puts(" [13] - Listar Contas Corrente\n");
-        puts(" [14] - Listar Contas Poupança\n");
-        puts(" [15] - Teste\n");
-        puts(" [16] - Creditar rendimento em poupança\n");
+        puts("  [4] - Excluir Poupança\n");
+        puts("  [5] - Excluir Conta Corrente\n");
+        puts("  [6] - Depositar Poupança\n");
+        puts("  [7] - Depositar Conta Corrente\n");
+        puts("  [8] - Sacar Poupança\n");
+        puts("  [9] - Sacar Conta Corrente\n");
+        puts(" [10] - Transferencia\n");
+        puts(" [11] - Cobrar Tarifa\n");
+        puts(" [12] - Cobrar CPMF\n");
+        puts(" [13] - Saldo\n");
+        puts(" [13] - Extrato\n");
+        puts(" [14] - Listar Clientes\n");
+        puts(" [15] - Listar Contas Corrente\n");
+        puts(" [16] - Listar Contas Poupança\n");
+        puts(" [17] - Teste\n");
+        puts(" [18] - Creditar rendimento em poupança\n");
         puts("Qualquer outra tecla para Sair");
         puts("\n\n");
         cin >> opcao;
@@ -69,76 +72,93 @@ void Interface::menu()
             break;
         }
 
-        case 4: //METODO PARA EXCLUIR UMA CONTA DE UM CLIENTE
+        case 4: //METODO PARA EXCLUIR UMA CONTA POUPANCA DE UM CLIENTE
         {
-            excluiConta();
+            excluiConta(2);
             break;
         }
 
-        case 5: //METODO PARA DEPOSITAR EM UMA CONTA
+        case 5: //METODO PARA EXCLUIR UMA CONTA CORRENTE DE UM CLIENTE
         {
-            deposita();
+            excluiConta(1);
+            break;
+        }
+                
+        case 6: //METODO PARA DEPOSITAR EM UMA CONTA POUPANCA
+        {
+            deposita(2);
+            break;
+        }
+                        
+        case 7: //METODO PARA DEPOSITAR EM UMA CONTA CORRENTE
+        {
+            deposita(1);
+            break;
+        }
+                
+        case 8: //METODO PARA SACAR DE UMA CONTA POUPANCA
+        {
+            saca(2);
             break;
         }
 
-        case 6: //METODO PARA SACAR DE UMA CONTA
+        case 9: //METODO PARA SACAR DE UMA CONTA CORRENTE
         {
-            saca();
+            saca(1);
             break;
         }
-
-        case 7: //METODO PARA TRANSFERÊNCIA ENTRE CONTAS
+                
+        case 10: //METODO PARA TRANSFERÊNCIA ENTRE CONTAS
         {
             transfere();
             break;
         }
 
-        case 8: //METODO PARA COBRAR TARIFA
+        case 11: //METODO PARA COBRAR TARIFA
         {
             interfaceBanco.newFee(15.0);
             break;
         }
 
-        case 9: //METODO PARA COBRAR CPMF
+        case 12: //METODO PARA COBRAR CPMF
         {
             cout << "Sera tarifado CPMF." << endl;
             interfaceBanco.newTaxCPMF();
             break;
         }
 
-        case 10: //METODO PARA VER SALDO
+        case 13: //METODO PARA VER SALDO
         {
             checaSaldo();
             break;
         }
-        case 11: //METODO PARA LISTAR EXTRATO
+        case 14: //METODO PARA LISTAR EXTRATO
         {
             listStatement();
             break;
         }
 
-        case 12:
+        case 15:
         {
             listaClientes();
             break;
         }
 
-        case 13:
+        case 16:
         {
             listaContasCorrentes();
             break;
         }
-        case 14:
+        case 17:
         {
             listaPoupancas();
             break;
         }
-        case 15: {
+        case 18: {
             interfaceBanco.testeStatement();
             break;
         }
-
-        case 16: //METODO PARA CREDITAR RENDIMENTO NAS POUPANÇAS
+        case 19: //METODO PARA CREDITAR RENDIMENTO NAS POUPANÇAS
         {
             interfaceBanco.newSavingsIncome();
             break;
@@ -230,13 +250,14 @@ void Interface::excluiCliente () {
     };
 }
 
-void Interface::excluiConta() {
+
+void Interface::excluiConta(int tipoConta) {
     int numConta;
     cout << "Digite a o numero da conta que deseja excluir:";
     cin >> numConta;
 
     try {
-        interfaceBanco.removeBankAccount(numConta);
+        interfaceBanco.removeBankAccount(numConta,tipoConta);
         cout << "Conta excluida" << endl;
     }
     catch (ExceptionClass& error) {
@@ -245,7 +266,7 @@ void Interface::excluiConta() {
     
 }
 
-void Interface::deposita() {
+void Interface::deposita(int tipoConta) {
     int numConta;
     double valorDeposito;
     cout << "Para um novo deposito, digite numero da conta:";
@@ -254,15 +275,23 @@ void Interface::deposita() {
     cin >> valorDeposito;
 
     try {
-        interfaceBanco.newDeposit(numConta, valorDeposito);
+        if (tipoConta == 1 ) {
+            interfaceBanco.newDeposit(numConta, valorDeposito);
+        }
+        else {
+            time_t timeNow = time(0);
+            struct tm actualDay = *localtime(&timeNow);
+            int day = actualDay.tm_mday;
+            interfaceBanco.newDeposit(numConta, valorDeposito,day);
+        }
+        
     }
     catch (ExceptionClass& error) {
         cout << error.what() << endl;
     };
-    
 }
 
-void Interface::saca() {
+void Interface::saca(int tipoConta) {
     int numConta;
     double valorSaque;
     cout << "Para novo saque digite o numero da conta :\n";
@@ -271,28 +300,43 @@ void Interface::saca() {
     cin >> valorSaque;
 
     try {
-        interfaceBanco.newWithdraw(numConta, valorSaque);
+        if (tipoConta == 1 ) {
+            interfaceBanco.newWithdraw(numConta, valorSaque);
+        }
+        else {
+            time_t timeNow = time(0);
+            struct tm actualDay = *localtime(&timeNow);
+            int day = actualDay.tm_mday;
+            interfaceBanco.newWithdraw(numConta, valorSaque, day);
+        }
     }
     catch (ExceptionClass& error) {
         cout << error.what() << endl;
     };
-    
 }
 
 void Interface::transfere() {
     int contaOrigem;
     int contaDestino;
     double valorTransferencia;
+    int tipoContaFonte;
+    int tipoContaDestino;
     
     cout << "Digite o numero da conta de origem: \n";
     cin >> contaOrigem;
+    cout << "Digite o tipo da conta de origem (1 para CC e 2 para Poupanca)\n";
+    cin >> tipoContaFonte;
+    
     cout << "Digite o numero da conta de destino: \n";
     cin >> contaDestino;
+    cout << "Digite o tipo da conta de destino (1 para CC e 2 para Poupanca)\n";
+    cin >> tipoContaDestino;
+    
     cout << "Digite o valor da transferencia: \n";
     cin >> valorTransferencia;
 
     try {
-        interfaceBanco.newTransaction(contaOrigem, contaDestino, valorTransferencia);
+        interfaceBanco.newTransaction(contaOrigem, contaDestino, valorTransferencia, tipoContaFonte, tipoContaDestino);
     }
     catch (ExceptionClass& error) {
         cout << error.what() << endl;
@@ -302,11 +346,14 @@ void Interface::transfere() {
 
 void Interface::checaSaldo(){
     int numeroConta;
+    int tipoConta;
+    cout << "Digite o tipo da conta (1 para CC e 2 para Poupanca)\n";
+    cin >> tipoConta;
     cout << "Digite sua conta: ";
     cin >> numeroConta;
 
     try {
-        cout << interfaceBanco.bankBalance(numeroConta) << endl;
+        cout << interfaceBanco.bankBalance(numeroConta,tipoConta) << endl;
     }
     catch (ExceptionClass& error) {
         cout << error.what() << endl;
@@ -330,11 +377,11 @@ void Interface::listaContasCorrentes() {
 }
 
 void Interface::listaPoupancas() {
-    vector <Poupanca> listSavingsAccs = interfaceBanco.getPoupancaList();
-    for (auto acc : listSavingsAccs){
-        cout << "Cliente: " << acc.getClient().getName() << endl;
-        cout << "Número da Conta: " << acc.getAccountNumber() << endl;
-    }
+//    vector <Poupanca> listSavingsAccs = interfaceBanco.getPoupancaList();
+//    for (auto acc : listSavingsAccs){
+//        cout << "Cliente: " << acc.getClient().getName() << endl;
+//        cout << "Número da Conta: " << acc.getAccountNumber() << endl;
+//    }
 }
 
 

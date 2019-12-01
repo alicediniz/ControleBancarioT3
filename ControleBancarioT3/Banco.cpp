@@ -85,28 +85,35 @@ int Banco::findClient(string cpf_cnpj){
     return -1;
 }
 
-void Banco::removeClient(string cpf_cnpj, int tipoConta) {
+void Banco::removeClient(string cpf_cnpj) {
     int index = findClient(cpf_cnpj);
     bool deleteClient = true;
     if (index == -1){
         deleteClient = false;
     }
     if (deleteClient) {
-        int accIndex = checkClientHasAccount(cpf_cnpj, tipoConta);
-        if ( accIndex != - 1) {
-            int accNumber;
-            if (tipoConta == 1) {
-                 accNumber = contasCorrente[accIndex].getAccountNumber();
+        int notFound = 0;
+        for ( int tipoConta = 1 ; tipoConta <3 ; tipoConta ++) {
+            int accIndex = checkClientHasAccount(cpf_cnpj, tipoConta);
+            if ( accIndex != - 1) {
+                int accNumber;
+                if (tipoConta == 1) {
+                    accNumber = contasCorrente[accIndex].getAccountNumber();
+                }
+                else {
+                    accNumber = poupancas[accIndex].getAccountNumber();
+                }
+                removeBankAccount(accNumber, tipoConta);
             }
             else {
-                accNumber = poupancas[accIndex].getAccountNumber();
+                notFound ++;
             }
-            removeBankAccount(accNumber, tipoConta);
         }
-        clientes.erase(clientes.begin()+index);
-    }
-    else {
-        throw ExceptionClass(4);
+        if (notFound != 2) {
+            clientes.erase(clientes.begin()+index);
+        } else {
+            throw ExceptionClass(4);
+        }
     }
 };
 
@@ -282,14 +289,14 @@ double Banco::bankBalance(int accountNumber, int tipoConta) {
     return saldo;
 };
 
-vector <Movimentacao> Banco::bankStatement(int accountNumber, int tipoConta) {
+vector <Movimentacao> Banco::bankStatement(int accountNumber) {
     time_t timeNow = time(0);
     struct tm actualMonth;
     actualMonth = *localtime(&timeNow);
     actualMonth.tm_mday = 1;
     vector <Movimentacao> statement;
     
-    int accIndex = findAccountIndex(accountNumber, tipoConta);
+    int accIndex = findAccountIndex(accountNumber,1);
     if (accIndex != - 1) {
         statement = bankStatement(accountNumber, actualMonth);
     }
@@ -300,7 +307,7 @@ vector <Movimentacao> Banco::bankStatement(int accountNumber, int tipoConta) {
 };
 
 vector <Movimentacao> Banco::bankStatement(int accountNumber, struct tm startTime) {
-    int accIndex = findAccountIndex(accountNumber);
+    int accIndex = findAccountIndex(accountNumber,1);
     vector <Movimentacao> statement;
     if (accIndex != -1) {
         statement =  contasCorrente[accountNumber].getAccountBalance(startTime);

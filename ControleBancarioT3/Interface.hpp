@@ -35,9 +35,9 @@ public:
     void criaNovaConta();
     void menu();
     void excluiCliente();
-    void excluiConta();
-    void deposita();
-    void saca();
+    void excluiConta(int tipoConta);
+    void deposita(int tipoConta);
+    void saca(int tipoConta);
     void transfere();
     void checaSaldo();
     void listaClientes();
